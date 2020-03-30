@@ -23,42 +23,20 @@ int CalcSumOfDigit(int n);      // 各桁の和を計算する。
 // ------------------------------------------------
 int main() {
 
-  string s;
-  string div[] = {"dream","dreamer","erase","eraser"};
+  int x;
 
-  cin >> s;
-  reverse(s.begin(),s.end());
+  cin >> x;
 
-  rep(i,4)
-  {
-    reverse(div[i].begin(),div[i].end());
-  }
+  int u,b,c;
 
-  bool cc = true;
-  for(int i = 0; i < s.size();)
-  {
-    bool c = false;
-    rep(j,4)
-    {
-      if(
-          s.substr(0,div[j].size()) == div[j]
-        )
-        {
-          i += div[j].size();
-          c = true;
- //         break;
-        }
-    }
-    if(!c)
-    {
-      cc = false;
-      break;
-    }
+  u = x % 500 * 1000;
 
-  }
+  x = x % 500;
 
-  if(cc) cout << "YES" << endl;
-  else cout  << "NO" << endl;
+  u =+ x % 5;
+
+  cout << u;
+
 
   return 0;
 }
