@@ -24,13 +24,14 @@ string lower(string str);       // 英字を小文字に変換する。
 #define vsort(v)      sort((v).begin(),(v).end())
 #define rvsort(v)     sort(rall((v)))
 #define vi            vector<int>
+#define GCD(a,b)      __gcd((a),(b))
+#define LCM(a,b)      (a)/GCD((a),(b))*(b)
 
 const int INF = 1e9;
 
 // code
 // ------------------------------------------------
 int main() {
-
 
 
 
