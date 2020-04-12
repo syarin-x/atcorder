@@ -17,6 +17,7 @@ string lower(string str);       // 英字を小文字に変換する。
 // ------------------------------------------------
 #define all(a)        (a).begin(),(a).end()
 #define rall(a)       (a).rbegin(),(a).rend()
+#define pb            push_back
 #define sz(a)         int((a).size())
 #define rep(i,n)      for(int(i)=0;(i)<(n);(i)++)
 #define repe(i,n)     for(int(i)=0;(i)<=(n);(i)++)
@@ -29,13 +30,42 @@ string lower(string str);       // 英字を小文字に変換する。
 
 const int INF = 1e9;
 
-typedef long long ll;
-typedef unsigned long long ull;
-
 // code
 // ------------------------------------------------
 int main() {
 
+  int x1,y1,x2,y2;
+  cin >> x1 >> y1 >> x2 >> y2;
+
+  int dis = (x1 == x2) ? abs(y1 - y2) : abs(x1 - x2);
+
+  if(x1 == x2)
+  {
+    if(y1 > y2)
+    {
+      cout << x2 + dis << " " << y2 << " ";
+      cout << x2 + dis << " " << y1;
+    }
+    else
+    {
+      cout << x2 - dis << " " << y2 << " ";
+      cout << x2 - dis << " " << y1;
+    }    
+  }
+  else
+  {
+    if(x1 < x2)
+    {
+      cout << x2 << " " << y1 + dis << " ";
+      cout << x1 << " " << y1 + dis;
+    }
+    else
+    {
+      cout << x1 << " " << y1 - dis << " ";
+      cout << x2 << " " << y1 - dis;
+    }
+    
+  }
 
   return 0;
 }

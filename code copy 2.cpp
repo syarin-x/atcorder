@@ -29,12 +29,27 @@ string lower(string str);       // 英字を小文字に変換する。
 
 const int INF = 1e9;
 
-typedef long long ll;
-typedef unsigned long long ull;
-
 // code
 // ------------------------------------------------
+void cntBomb(int* s,int i,int j)
+{
+
+}
+
 int main() {
+
+  string n;
+  cin >> n;
+
+  map<char,int> m;
+
+  rep(i,3)
+  {
+    m[n[i]]++;
+  }
+
+  if(m['7'] > 0) cout << "Yes" << endl;
+  else cout << "No" << endl;
 
 
   return 0;

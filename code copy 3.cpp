@@ -29,13 +29,21 @@ string lower(string str);       // 英字を小文字に変換する。
 
 const int INF = 1e9;
 
-typedef long long ll;
-typedef unsigned long long ull;
-
 // code
 // ------------------------------------------------
 int main() {
 
+  int n;
+  cin >> n;
+  unsigned long long ans = 0;
+
+  for(int i = 1; i <= n ;i++)
+  {
+    if(i % 3 || i % 5)
+      ans += i;
+  }
+
+  cout << ans << endl;
 
   return 0;
 }
