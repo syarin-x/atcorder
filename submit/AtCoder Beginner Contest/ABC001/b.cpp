@@ -17,6 +17,7 @@ string lower(string str);       // 英字を小文字に変換する。
 // ------------------------------------------------
 #define all(a)        (a).begin(),(a).end()
 #define rall(a)       (a).rbegin(),(a).rend()
+#define pb            push_back
 #define sz(a)         int((a).size())
 #define rep(i,n)      for(int(i)=0;(i)<(n);(i)++)
 #define repe(i,n)     for(int(i)=0;(i)<=(n);(i)++)
@@ -31,26 +32,31 @@ const int INF = 1e9;
 
 // code
 // ------------------------------------------------
-void cntBomb(int* s,int i,int j)
-{
-
-}
-
 int main() {
 
-  string n;
+  int n;
   cin >> n;
 
-  map<char,int> m;
-
-  rep(i,3)
+  if(n < 100)
   {
-    m[n[i]]++;
+    cout << "00" << endl;
   }
-
-  if(m['7'] > 0) cout << "Yes" << endl;
-  else cout << "No" << endl;
-
+  else if(100 <= n && n <= 5000)
+  {
+    printf("%02d\n" ,n / 100);    
+  }
+  else if(6000 <= n && n <= 30000)
+  {
+    printf("%02d\n" ,n / 1000 + 50);
+  }
+  else if(35000 <= n && n <= 70000)
+  {
+    printf("%02d\n" ,(n / 1000 - 30) / 5 + 80);
+  }
+  else if(70000 < n)
+  {
+    cout << "89" << endl;
+  }
 
   return 0;
 }
