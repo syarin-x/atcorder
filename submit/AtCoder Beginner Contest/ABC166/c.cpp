@@ -36,28 +36,65 @@ typedef vector<ll> vll;
 
 // code
 // ------------------------------------------------
-int main() {
-
-  ll n;
-  cin >> n;
-  vll a(n);
-  rep(i,n) cin >> a[i];
-
-  map<ll,ll> l;
-
-  rep(i,n)
+/*void dfs(vector<vll> &Graph,vll &h,vector<bool> &seen,ll no,ll &max,ll &cnt)
+{
+  for(auto itr = Graph[no].begin(); itr != Graph[no].end(); ++itr)
   {
-    ll buf = i + a[i];
-    l[buf]++;
+    if(seen[*itr] == true) continue;
+    seen[*itr] = true;
+    cout << "seen" << *itr << endl;
+
+    if(max == h[*itr])
+    {
+      cnt++;
+      cout << *itr << " aaa" << endl;
+    }
+    else if(max < h[*itr])
+    {
+      cnt = 1;
+      cout << "Good" << *itr << endl;
+      max = h[*itr];
+    }
+    
+    dfs(Graph,h,seen,*itr,max,cnt);
+  }
+  return;
+}*/
+
+int main() {
+  
+  ll n,m;
+  cin >> n >> m;
+
+  vll h(n);
+  vector<bool> seen(n);
+  rep(i,n) cin >> h[i];
+
+  vector<vll> Graph(n);
+
+  rep(i,m)
+  {
+    ll a,b;
+    cin >> a >> b;
+    Graph[a-1].push_back(b-1);
+    Graph[b-1].push_back(a-1);
   }
 
   ll ans = 0;
 
   rep(i,n)
   {
-    ll buf = i - a[i];
-    if(l[buf] > 0)
-      ans += l[buf];
+    ll max = h[i];
+    bool flg =true;
+    for(auto itr = Graph[i].begin(); itr!= Graph[i].end();itr++)
+    {
+      if(max <= h[*itr])
+      {
+        flg = false;
+        break;
+      }
+    }
+    if(flg) ans++;
   }
 
   cout << ans << endl;

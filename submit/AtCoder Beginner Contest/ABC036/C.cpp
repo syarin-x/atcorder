@@ -37,30 +37,34 @@ typedef vector<ll> vll;
 // code
 // ------------------------------------------------
 int main() {
+  
+  ll n;cin >> n;
 
-  ll n;
-  cin >> n;
-  vll a(n);
+  vll a(n),b(n);
   rep(i,n) cin >> a[i];
 
-  map<ll,ll> l;
+  map<ll,vll> m;
 
   rep(i,n)
   {
-    ll buf = i + a[i];
-    l[buf]++;
+    m[a[i]].push_back(i);
   }
 
-  ll ans = 0;
+  ll i = 0;
+  for(auto itr = m.begin(); itr != m.end(); ++itr)
+  {
+    for(auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2)
+    {
+      b[*itr2] = i;
+    }
+    ++i;
+  }
 
   rep(i,n)
   {
-    ll buf = i - a[i];
-    if(l[buf] > 0)
-      ans += l[buf];
+    cout << b[i] << endl;
   }
 
-  cout << ans << endl;
 
   return 0;
 }

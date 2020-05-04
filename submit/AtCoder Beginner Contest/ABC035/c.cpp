@@ -37,30 +37,34 @@ typedef vector<ll> vll;
 // code
 // ------------------------------------------------
 int main() {
+  
+  ll n,q;cin >> n >> q;
+  vll rui(n,0);
+  map<ll,ll> l,r;
 
-  ll n;
-  cin >> n;
-  vll a(n);
-  rep(i,n) cin >> a[i];
+  rep(i,q)
+  {
+    ll a,b;
+    cin >> a >> b;
+    l[a-1]++;
+    r[b]++; // 範囲の終わりを判断できるように
+  }
 
-  map<ll,ll> l;
+  ll buf = 0;
 
   rep(i,n)
   {
-    ll buf = i + a[i];
-    l[buf]++;
+    buf += l[i] - r[i];
+    rui[i] = buf % 2;
   }
-
-  ll ans = 0;
 
   rep(i,n)
   {
-    ll buf = i - a[i];
-    if(l[buf] > 0)
-      ans += l[buf];
+    cout << rui[i];
   }
+  cout << endl;
 
-  cout << ans << endl;
+
 
   return 0;
 }

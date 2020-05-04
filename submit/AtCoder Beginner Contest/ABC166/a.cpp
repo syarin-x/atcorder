@@ -37,30 +37,18 @@ typedef vector<ll> vll;
 // code
 // ------------------------------------------------
 int main() {
+  
 
-  ll n;
-  cin >> n;
-  vll a(n);
-  rep(i,n) cin >> a[i];
+  string s;
+  cin >> s;
 
-  map<ll,ll> l;
-
-  rep(i,n)
+  if(s == "ABC")
+  cout << "ARC" << endl;
+  else
   {
-    ll buf = i + a[i];
-    l[buf]++;
+    cout << "ABC" << endl;
   }
-
-  ll ans = 0;
-
-  rep(i,n)
-  {
-    ll buf = i - a[i];
-    if(l[buf] > 0)
-      ans += l[buf];
-  }
-
-  cout << ans << endl;
+  
 
   return 0;
 }
