@@ -36,33 +36,43 @@ typedef vector<ll> vll;
 
 // code
 // ------------------------------------------------
-int main()
-{
-  ll sx,sy,tx,ty;
-  cin >> sx >> sy >> tx >> ty;
+int main() {
 
-  ll w = tx - sx;
-  ll h = ty - sy;
+  ll n;
+  cin >> n;
+  vll a(n+1,-1);
+  rep(i,n) cin >> a[i];
 
-  // phase1
-  rep(i,h) cout << "U";
-  rep(i,w) cout << "R";
+  ll ans = 0;
 
-  // phase2
-  rep(i,h) cout << "D";
-  rep(i,w) cout << "L";
+  ll r = 0;
+  rep(l,n)
+  {
+    if(l < r)
+    {
+      // rが先に言ってる間は追いつくまですすめる
+    }
+    else
+    {
+      // 追いついていたらすすめる
+      r = l;
+      for(ll j = l + 1; j < n; ++j)
+      {
+        if(a[j-1] < a[j])
+        {
+          r = j;
+        }
+        else
+        {
+          break;
+        }
+      }
+    }
+    
+    ans += r - l + 1;
+  }
 
-  // phase3
-  cout << "LU";
-  rep(i,h) cout << "U";
-  rep(i,w) cout << "R";
-  cout << "RD";
-
-  // phase4
-  cout << "RD";
-  rep(i,h) cout << "D";
-  rep(i,w) cout << "L";
-  cout << "LU" << endl;
+  cout << ans << endl;
 
 
   return 0;

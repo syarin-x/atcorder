@@ -36,34 +36,23 @@ typedef vector<ll> vll;
 
 // code
 // ------------------------------------------------
-int main()
-{
-  ll sx,sy,tx,ty;
-  cin >> sx >> sy >> tx >> ty;
+int main() {
 
-  ll w = tx - sx;
-  ll h = ty - sy;
+  ll n;
+  cin >> n;
 
-  // phase1
-  rep(i,h) cout << "U";
-  rep(i,w) cout << "R";
+  vll a(n),dp(n+2,LLONG_MAX);
+  rep(i,n) cin >> a[i];
 
-  // phase2
-  rep(i,h) cout << "D";
-  rep(i,w) cout << "L";
+  dp[0] = 0;
 
-  // phase3
-  cout << "LU";
-  rep(i,h) cout << "U";
-  rep(i,w) cout << "R";
-  cout << "RD";
+  rep(i,n)
+  {
+    dp[i+1] = min(dp[i+1], dp[i] + abs(a[i] - a[i+1])); 
+    dp[i+2] = min(dp[i+2], dp[i] + abs(a[i] - a[i+2])); 
+  }
 
-  // phase4
-  cout << "RD";
-  rep(i,h) cout << "D";
-  rep(i,w) cout << "L";
-  cout << "LU" << endl;
-
+  cout << dp[n-1] << endl;
 
   return 0;
 }

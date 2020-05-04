@@ -36,33 +36,39 @@ typedef vector<ll> vll;
 
 // code
 // ------------------------------------------------
-int main()
-{
-  ll sx,sy,tx,ty;
-  cin >> sx >> sy >> tx >> ty;
+int main() {
 
-  ll w = tx - sx;
-  ll h = ty - sy;
+  ll n,k;
+  cin >> n >> k;
 
-  // phase1
-  rep(i,h) cout << "U";
-  rep(i,w) cout << "R";
+  vector<char> d(k);
+  rep(i,k) cin >> d[i];
 
-  // phase2
-  rep(i,h) cout << "D";
-  rep(i,w) cout << "L";
 
-  // phase3
-  cout << "LU";
-  rep(i,h) cout << "U";
-  rep(i,w) cout << "R";
-  cout << "RD";
+  for(ll i = n; i < 100000; ++i)
+  {
+    string s = to_string(i);
 
-  // phase4
-  cout << "RD";
-  rep(i,h) cout << "D";
-  rep(i,w) cout << "L";
-  cout << "LU" << endl;
+    map<char,ll> m;
+    rep(j,sz(s))
+    {
+      m[s[j]]++;
+    }
+
+    bool is = true;
+    rep(j,k)
+    {
+      if(m[d[j]] > 0)
+        is = false;
+    }
+
+    if(is)
+    {
+      cout << i << endl;
+      return 0;
+    }
+
+  }
 
 
   return 0;

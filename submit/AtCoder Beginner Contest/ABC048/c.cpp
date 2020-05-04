@@ -38,32 +38,32 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  ll sx,sy,tx,ty;
-  cin >> sx >> sy >> tx >> ty;
 
-  ll w = tx - sx;
-  ll h = ty - sy;
+  ll n,x;
+  cin >> n >> x;
+  vll a(n+1,0);
+  rep(i,n) cin >> a[i];
 
-  // phase1
-  rep(i,h) cout << "U";
-  rep(i,w) cout << "R";
+  ll ans = 0;
 
-  // phase2
-  rep(i,h) cout << "D";
-  rep(i,w) cout << "L";
+  if(a[0] > x)
+  {
+    ans += a[0] - x;
+    a[0] = x;
+  }
 
-  // phase3
-  cout << "LU";
-  rep(i,h) cout << "U";
-  rep(i,w) cout << "R";
-  cout << "RD";
+  rep(i,n)
+  {
+    ll buf = a[i] + a[i+1];
+    if(buf > x)
+    {
+      ll sub = buf - x;
+      a[i+1] -= sub;
+      ans += sub;
+    }
+  }
 
-  // phase4
-  cout << "RD";
-  rep(i,h) cout << "D";
-  rep(i,w) cout << "L";
-  cout << "LU" << endl;
-
+  cout << ans << endl;
 
   return 0;
 }
