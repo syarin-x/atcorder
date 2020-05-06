@@ -38,7 +38,31 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  
+
+  ll n;cin >> n;
+  vll a(n),b(n);
+
+  rep(i,n)
+  {
+    cin >> a[i];
+    b[i] = a[i];
+  }
+
+  vsort(b);
+
+  ll m1 = b[n-1];
+  ll m2 = b[n-2];
+
+  rep(i,n)
+  {
+    if(a[i] == m1)
+      cout << m2 << endl;
+    else
+    {
+      cout << m1 << endl;
+    }
+    
+  }
 
   return 0;
 }

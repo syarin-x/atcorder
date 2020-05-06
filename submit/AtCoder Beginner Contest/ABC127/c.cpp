@@ -38,7 +38,30 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  
+
+  ll n,m;
+  cin >> n >> m;
+
+  vll l(n,0),r(n+1,0);
+
+  rep(i,m)
+  {
+    ll a,b;
+    cin >> a >> b;
+
+    l[a-1]++;
+    r[b]++;
+  }
+
+  ll imo = 0;
+  ll cnt = 0;
+  rep(i,n)
+  {
+    imo += l[i] - r[i];
+    if(imo ==  m) cnt++;
+  }
+
+  cout << cnt << endl;
 
   return 0;
 }

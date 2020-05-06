@@ -39,6 +39,39 @@ typedef vector<ll> vll;
 int main()
 {
   
+  ll n;
+  string s;
+  cin >> s;
+
+  n = sz(s);
+
+  vll a(n,0),b(n,1),c(n);
+
+  rep(i,n)
+  {
+    a[i] = i % 2;
+    b[i] = (i+1) % 2;
+    c[i] = s[i] - '0';
+  }
+
+  ll a_cnt = 0;
+  ll b_cnt = 0;
+
+  rep(i,n)
+  {
+    if(c[i] != a[i])
+    {
+      a_cnt++;
+    }
+    if(c[i] != b[i])
+    {
+      b_cnt++;
+    }
+  }
+
+  ll ans = min(a_cnt,b_cnt);
+
+  cout << ans << endl;
 
   return 0;
 }

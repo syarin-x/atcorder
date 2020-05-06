@@ -38,7 +38,48 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
+
+  ll a,b;
+  cin >> a >> b;
+
+  ll ans = 0;
+  if(a <= 0 && 0 <= b)
+  {
+    ans = 0;
+  }
+  else if(a > 0 && b > 0)
+  {
+    ans = 1;    
+  }
+  else
+  {
+    ll diff = abs(b - a) + 1;
+    if(diff % 2)
+    {
+      ans = -1;
+    }
+    else
+    {
+      ans = 1;
+    }
+  }
+
+  switch(ans)
+  {
+    case 1:
+      cout << "Positive" << endl;
+      break;
+    case 0:
+      cout << "Zero" << endl;
+      break;
+    case -1:
+      cout << "Negative" << endl;
+      break;
+  }
   
+  
+
+
 
   return 0;
 }
