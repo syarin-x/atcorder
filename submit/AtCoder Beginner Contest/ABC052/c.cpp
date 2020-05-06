@@ -39,6 +39,43 @@ typedef vector<ll> vll;
 int main()
 {
 
+  ll n;
+  cin >> n;
+
+  map<ll,ll> m;
+
+  ll mo = 1000000007;
+
+  ll ans = 1;
+
+  // N!の素因数を列挙する
+  // ちょっと大きい数になるので、N!を計算する過程でそれぞれの項を素因数分解していく
+  rep(i,n)
+  {
+    ll buf = i + 1;
+
+    for(ll j = 2;j <= buf; j++)
+    {
+      if(buf % j == 0)
+      {
+        while(buf % j == 0)
+        {
+          m[j]++;
+          buf /= j;
+        }
+      }
+    }
+  }
+
+  for(auto itr = m.begin(); itr!=m.end(); ++itr)
+  {
+    ans = (ans * (itr->second + 1) % mo) % mo;
+  }
+
+  cout << ans << endl;
+
+  return 0;
+
   return 0;
 }
 // funcの実体

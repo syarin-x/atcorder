@@ -38,6 +38,30 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
+  ll n;
+  cin >> n;
+
+  ll ans = -1;
+  rep(i,50000)
+  {
+    ll x = i * 1.08;
+    if(x == n)
+    {
+      ans = i;
+      break;
+    }
+  }
+
+  if(ans == -1)
+  {
+    cout << ":(" << endl;
+  }
+  else
+  {
+    cout << ans << endl;
+  }
+  
+
 
   return 0;
 }

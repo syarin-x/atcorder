@@ -38,6 +38,42 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
+  ll n;cin >> n;
+  vll p(n),q(n),a(n);
+
+  rep(i,n) a[i] = i + 1;
+  rep(i,n) cin >> p[i];
+  rep(i,n) cin >> q[i];
+
+  ll cnt = 0;
+  ll p_cnt,q_cnt;
+
+  do{
+    bool b = true;
+    rep(i,n)
+    {
+      if(a[i] != p[i])
+       b = false;
+    }
+
+    if(b) p_cnt = cnt;
+
+    b = true;
+    rep(i,n)
+    {
+      if(a[i] != q[i])
+        b = false;
+    }
+
+    if(b) q_cnt = cnt;
+
+    cnt++;
+
+  }while(next_permutation(all(a)));
+
+
+  cout << abs(p_cnt - q_cnt) << endl;
+
 
   return 0;
 }

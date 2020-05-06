@@ -39,6 +39,17 @@ typedef vector<ll> vll;
 int main()
 {
 
+  ll h,w;
+  cin >> h >>w;
+
+  ull ans = (h * w + 2 - 1) / 2;
+
+  if(h==1||w==1)
+  {
+    ans = 1;
+  }
+
+  cout << ans << endl;
   return 0;
 }
 // funcの実体

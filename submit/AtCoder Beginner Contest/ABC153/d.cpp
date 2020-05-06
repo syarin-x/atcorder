@@ -39,6 +39,18 @@ typedef vector<ll> vll;
 int main()
 {
 
+  ll h;
+  cin >> h;
+
+  ll buf = 1,cnt = 0;
+  while(buf * 2 <= h)
+  {
+    buf = buf * 2;
+    cnt++;
+  }
+  ll c = pow(2,cnt) - 1;
+  cout << buf + c << endl;
+
   return 0;
 }
 // funcの実体

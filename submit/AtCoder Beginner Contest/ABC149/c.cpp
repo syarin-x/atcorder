@@ -39,6 +39,28 @@ typedef vector<ll> vll;
 int main()
 {
 
+  ll x;
+  cin >> x;
+
+  for(ll i = x;;i++)
+  {
+    bool b = false;
+    for(ll j = 2;j < i;j++)
+    {
+      if(i % j == 0)
+      {
+        b = true;
+        break;
+      }
+    }
+
+    if(!b)
+    {
+      cout << i << endl;
+      return 0;
+    }
+  }
+
   return 0;
 }
 // funcの実体

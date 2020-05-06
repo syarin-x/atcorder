@@ -36,8 +36,73 @@ typedef vector<ll> vll;
 
 // code
 // ------------------------------------------------
+ll ans;
+vector<vector<pair<ll,bool>>> Graph(50);
+vector<bool> seen(50,false);
+
+void dfs(ll pos)
+{
+  seen[pos] = true;
+  rep(i,sz(Graph[pos]))
+  {
+    if(Graph[pos][i].second && seen[Graph[pos][i].first] == false)
+    {
+      dfs(Graph[pos][i].first);
+    }
+  }
+
+  return;
+
+}
 int main()
 {
+  ll n,m;
+  cin >> n >> m;
+
+  // グラフを作る
+  rep(i,m)
+  {
+    ll a,b;cin >> a >> b;
+    a--; b--;
+    pair<ll,bool> buf;
+    buf.first = b;
+    buf.second = true;
+
+    Graph[a].push_back(buf);
+    buf.first = a;
+    Graph[b].push_back(buf);
+  }
+
+  ll ans = 0;
+  rep(i,n)
+  {
+    rep(j,sz(Graph[i]))
+    {
+
+      rep(k,n)
+      rep(l,sz(Graph[k]))
+      {
+        Graph[k][l].second = true;
+      }
+
+      rep(k,50) seen[k] = false;
+
+      Graph[i][j].second = false;
+      dfs(0);
+
+      rep(k,n)
+      {
+        if(seen[k] == false)
+        {
+          ans++;
+          break;
+        }
+      }
+      Graph[i][j].second = true;
+    }
+  }
+
+  cout << ans << endl;
 
   return 0;
 }

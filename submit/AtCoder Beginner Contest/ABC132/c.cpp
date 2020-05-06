@@ -39,6 +39,19 @@ typedef vector<ll> vll;
 int main()
 {
 
+  ll n;
+  cin >> n;
+  vll d(n);
+  rep(i,n)cin >> d[i];
+
+  vsort(d);
+
+  ll r = d[sz(d) / 2 - 1];
+  ll l = d[sz(d) / 2];
+
+  ll ans = l - r;
+
+  cout << ans << endl;
   return 0;
 }
 // funcの実体

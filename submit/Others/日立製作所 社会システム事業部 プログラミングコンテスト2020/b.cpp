@@ -39,6 +39,34 @@ typedef vector<ll> vll;
 int main()
 {
 
+  ll A,B,m;
+  cin >> A >> B >> m;
+
+  vll a(A),b(B);
+  rep(i,A) cin >> a[i];
+  rep(i,B) cin >> b[i];
+
+  vll x(m),y(m),c(m);
+  rep(i,m)
+  {
+    cin >> x[i] >> y[i] >> c[i];
+  }
+
+  ll ans = LLONG_MAX;
+  rep(i,m)
+  {
+    ll val = a[x[i]-1] + b[y[i]-1] - c[i];
+    ans = min(ans,val);
+  }
+
+  vsort(a);
+  vsort(b);
+
+  ans = min(ans,a[0]+b[0]);
+
+  cout << ans << endl;
+
+
   return 0;
 }
 // funcの実体

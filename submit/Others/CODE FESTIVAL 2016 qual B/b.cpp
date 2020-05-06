@@ -39,6 +39,50 @@ typedef vector<ll> vll;
 int main()
 {
 
+  ll n,a,b;
+  cin >> n >> a >> b;
+
+  string s;
+  cin >> s;
+
+  ll pass = 0;
+  ll f_pass = 0;
+  rep(i,sz(s))
+  {
+    if(s[i] == 'a')
+    {
+      if(pass < a + b)
+      {
+        pass++;
+        cout << "Yes" << endl;
+      }
+      else
+      {
+        cout << "No" << endl;
+      }
+      
+    }
+    else if(s[i] == 'b')
+    {
+      if(pass < a + b && f_pass < b)
+      {
+        pass++;
+        f_pass++;
+        cout << "Yes" << endl;
+      }
+      else
+      {
+        cout << "No" << endl;
+      }
+
+    }
+    else
+    {
+      cout << "No" << endl;
+      
+    }
+  }
+
   return 0;
 }
 // funcの実体

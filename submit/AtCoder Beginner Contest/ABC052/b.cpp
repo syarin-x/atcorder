@@ -10,7 +10,6 @@ using namespace std;
 // func
 // ------------------------------------------------
 int CalcSumOfDigit(int n);      // 各桁の和を計算する。
-long long getDigit(long long n);      // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
 
@@ -18,6 +17,7 @@ string lower(string str);       // 英字を小文字に変換する。
 // ------------------------------------------------
 #define all(a)        (a).begin(),(a).end()
 #define rall(a)       (a).rbegin(),(a).rend()
+#define pb            push_back
 #define sz(a)         int((a).size())
 #define rep(i,n)      for(int(i)=0;(i)<(n);(i)++)
 #define repe(i,n)     for(int(i)=0;(i)<=(n);(i)++)
@@ -25,39 +25,41 @@ string lower(string str);       // 英字を小文字に変換する。
 #define rvsort(v)     sort(rall((v)))
 #define vi            vector<int>
 #define GCD(a,b)      __gcd((a),(b))
-#define LCM(a,b)      ((a)/GCD((a),(b))*(b))
+#define LCM(a,b)      (a)/GCD((a),(b))*(b)
 #define kiriage(a,b)  ((a)+(b)-1)/(b)
 
 const int INF = 1e9;
 
-typedef long long ll;
-typedef unsigned long long ull;
-typedef vector<ll> vll;
-
 // code
 // ------------------------------------------------
-int main()
-{
+int main() {
+
+  int n;
+  string s;
+  cin >> n >> s;
+
+  int x = 0;
+  int ans = 0;
+  rep(i,n)
+  {
+    if(s[i] == 'I')
+      x++;
+    else if(s[i] == 'D')
+      x--;
+    ans = max(ans,x);
+  }
+
+  cout << ans << endl;
+
+
 
   return 0;
 }
 // funcの実体
 // ------------------------------------------------
-ll getDigit(ll n)
+int CalcSumOfDigit(int n)
 {
-  int i = 1;
-  while(1)
-  {
-    n = n / 10;
-    if(n == 0)
-      break;
-    i++;
-  }
-  return i;
-}
-ll CalcSumOfDigit(ll n)
-{
-  ll s = 0;
+  int s = 0;
   while(n)
   {
     s += n % 10;

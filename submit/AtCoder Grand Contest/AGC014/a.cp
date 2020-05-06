@@ -39,6 +39,41 @@ typedef vector<ll> vll;
 int main()
 {
 
+  ll a,b,c;
+  cin >> a >> b >> c;
+
+  ll ans = 0;
+
+  if(!(a == b && a == c && b == c))
+  {
+    while(a % 2 == 0 && b % 2 == 0 && c % 2== 0)
+    {
+      ll as = a / 2;
+      ll bs = b / 2;
+      ll cs = c / 2;
+
+      a = bs + cs;
+      b = cs + as;
+      c = as + bs;
+
+      ans++;
+    }
+  }
+  else
+  {
+    if(a % 2)
+    {
+      ans = 0;
+    }
+    else
+    {
+      ans = -1; 
+    }
+  }
+  
+
+
+  cout << ans << endl;
   return 0;
 }
 // funcの実体
