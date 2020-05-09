@@ -38,10 +38,20 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
+
   string s;
   cin >> s;
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  map<char,ll> m;
+
+  rep(i,sz(s))
+  {
+    m[s[i]]++;
+  }
+
+  ll ans = min(m['0'],m['1']) * 2;
+
+  cout << ans << endl;
 
   return 0;
 }

@@ -38,10 +38,32 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  string s;
-  cin >> s;
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  ll a,b,c,x,y;
+
+  cin >> a >> b >> c >> x >> y;
+
+  ll ab_val = a * x + b * y;
+
+  ll c_val = 0;
+
+  if(x > y)
+  {
+    ll buf = x - y;
+    c_val = 2 * y * c + buf * a;
+  }
+  else
+  {
+    ll buf = y - x;
+    c_val = 2 *x * c + buf * b;
+  }
+
+  ll cc_val = max(x,y) * c * 2;
+
+  ll ans = min(cc_val,min(c_val,ab_val));
+
+  cout << ans << endl; 
+
 
   return 0;
 }

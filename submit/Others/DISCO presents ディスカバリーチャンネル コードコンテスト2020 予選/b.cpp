@@ -38,10 +38,35 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  string s;
-  cin >> s;
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  ll n;
+  cin >> n;
+  vll a(n);
+
+  ll length = 0;
+  rep(i,n)
+  {
+    cin >> a[i];
+    length += a[i];
+  }
+
+  ll l_leng = 0,r_leng = 0;
+  ll pos = 0;
+
+  rep(i,n)
+  {
+    r_leng += a[i];
+    if(r_leng >= length / 2.0)
+    {
+      l_leng = r_leng - a[i];
+      break;
+    }
+  }
+
+  ll l_h_leng = length - l_leng;
+  ll r_h_leng = length - r_leng;
+
+  cout << min(abs(l_h_leng - l_leng),abs(r_leng - r_h_leng)) << endl;
 
   return 0;
 }

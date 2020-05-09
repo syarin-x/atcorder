@@ -38,10 +38,24 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  string s;
-  cin >> s;
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  ll n,k;
+  cin >> n >> k;
+
+  vll h(n);
+  rep(i,n) cin >> h[i];
+
+  ll hight = LLONG_MAX;
+
+  vsort(h);
+
+  rep(i,n-k+1)
+  {
+    ll buf = h[i+k-1] - h[i];
+    hight = min(hight,buf);
+  }
+
+  cout << hight << endl;
 
   return 0;
 }

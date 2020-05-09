@@ -38,10 +38,32 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  string s;
-  cin >> s;
+  ll n;
+  cin >> n;
+  vll a(n);
+  rep(i,n) cin >> a[i];
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  ll next = 1;
+  ll cnt = 0;
+  rep(i,n)
+  {
+    if(a[i] == next)
+    {
+      next++;
+    }
+    else
+    {
+      cnt++;
+    }
+  }
+
+  if(cnt == n)
+  {
+    cnt = -1;
+  }
+
+  cout << cnt << endl;
+
 
   return 0;
 }

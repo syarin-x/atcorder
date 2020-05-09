@@ -38,10 +38,11 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  string s;
-  cin >> s;
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  ll a,b,c;
+  cin >> a >> b >> c;
+
+  cout << (b/ a > c ? c : b / a ) << endl;
 
   return 0;
 }

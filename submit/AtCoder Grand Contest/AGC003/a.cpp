@@ -41,7 +41,21 @@ int main()
   string s;
   cin >> s;
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  map<char,ll> m;
+
+  rep(i,sz(s))
+  {
+    m[s[i]] = 1;
+  }
+
+  ll flg = true;
+  if(m['N'] ^ m['S'] || m['W'] ^ m['E'])
+  {
+    flg = false;
+  }
+
+  if(flg) cout << "Yes" << endl;
+  else cout << "No" << endl;
 
   return 0;
 }

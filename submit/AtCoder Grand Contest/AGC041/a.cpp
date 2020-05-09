@@ -38,10 +38,26 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  string s;
-  cin >> s;
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  ll n,a,b;
+  cin >> n >> a >> b;
+
+  ll ans1,ans2,ans3;
+
+  ans1 = LLONG_MAX;
+  ans2 = LLONG_MAX;
+  ans3 = LLONG_MAX;
+  
+  if((b - a) % 2 == 0)
+  {
+    ans1 = (b - a) / 2;
+  }
+
+  ans2 = (n - a + n - b + 1) / 2;
+  ans3 = (a + b - 1) / 2;
+
+  cout << min(ans1,min(ans2,ans3)) << endl;
+
 
   return 0;
 }

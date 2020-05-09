@@ -41,7 +41,27 @@ int main()
   string s;
   cin >> s;
 
-  cout << s.substr(0,4) << " " << s.substr(4) << endl;
+  string bef = "";
+  ll cnt = 0;
+  rep(i,sz(s))
+  {
+    ll tail = -1;
+    for(ll j = i;j < sz(s); ++j)
+    {
+      if(s.substr(i,j-i+1) != bef)
+      {
+        tail = j;
+        break;
+      }
+    }
+    if(tail == -1)continue;
+    bef = s.substr(i,tail - i + 1);
+    i = tail;
+    cnt++;
+  }
+
+  cout << cnt << endl;
+
 
   return 0;
 }
