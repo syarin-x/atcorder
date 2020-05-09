@@ -38,7 +38,19 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
+  vll a(3);
+  rep(i,3) cin >> a[i];
 
+  vsort(a);
+
+  ll ans = a[0] * a[1];
+
+  if((a[0] * a[1] * a[2]) % 2 == 0)
+  {
+    ans = 0;
+  }
+
+  cout << ans << endl;
 
   return 0;
 }

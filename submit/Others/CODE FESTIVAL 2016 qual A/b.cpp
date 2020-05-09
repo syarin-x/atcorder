@@ -38,6 +38,25 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
+  ll n;
+  cin >> n;
+  vll a(n);
+  rep(i,n)
+  { 
+    cin >> a[i];
+    a[i]--;
+  }
+  ll ans = 0;
+
+  rep(i,n)
+  {
+    if(i == a[a[i]])
+    {
+      ans++;
+    }
+  }
+
+  cout << ans / 2 << endl;
 
 
   return 0;

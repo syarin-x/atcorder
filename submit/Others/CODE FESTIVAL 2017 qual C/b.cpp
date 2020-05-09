@@ -38,6 +38,24 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
+  ll n;cin >> n;
+  ll ans = 1,a;
+
+  rep(i,n)
+  {
+    cin >> a;
+    if(a % 2 == 1)
+    {
+      ans = ans * 1;
+    }
+    else
+    {
+      ans = ans * 2;
+    }
+  }
+
+  cout << pow(3,n) - ans << endl;
+
 
 
   return 0;
