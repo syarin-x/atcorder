@@ -39,29 +39,65 @@ typedef vector<ll> vll;
 int main()
 {
 
-  ll n;
-  cin >> n;
-
-  vll a(n);
-  rep(i,n) cin >> a[i];
-
-  map<ll,ll> m;
-  rep(i,n) m[a[i]]++;
-
-  ll ans = 0;
-  for(auto it:m)
-  {
-    ans += it.second * (it.second - 1) / 2;
-  }
+  ll n;cin >> n;
+  map<string,ll> m;
 
   rep(i,n)
   {
-    ll buf = 0;
-    buf = ans;
-    buf -= m[a[i]] * (m[a[i]] - 1) / 2;
-    buf += (m[a[i]] - 1) * (m[a[i]] - 2 ) / 2;
-    cout << buf << endl;
+    ll buf;
+    cin >> buf;
+
+    if(buf <= 399)
+    {
+      m["Ash"]++;
+    }
+    else if(buf <= 799)
+    {
+      m["Brown"]++;
+    }
+    else if(buf <= 1199)
+    {
+      m["Green"]++;
+    }
+    else if(buf <= 1599)
+    {
+      m["Sky"]++;
+    }
+    else if(buf <= 1999)
+    {
+      m["Blue"]++;
+    }
+    else if(buf <= 2399)
+    {
+      m["Yellow"]++;
+    }
+    else if(buf <= 2799)
+    {
+      m["Orange"]++;
+    }
+    else if(buf <= 3199)
+    {
+      m["Red"]++;
+    }
+    else
+    {
+      m["Rainbow"]++;
+    }
   }
+
+  ll le = sz(m);
+
+  ll hi = le;
+
+  if(m["Rainbow"] > 0)
+  {
+    ll r = m["Rainbow"];
+    hi = hi - 1 + r;
+    le--;
+    if(le == 0)le++;
+  }
+
+  cout << le << " " << hi << endl;
 
   return 0;
 }

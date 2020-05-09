@@ -39,29 +39,24 @@ typedef vector<ll> vll;
 int main()
 {
 
-  ll n;
-  cin >> n;
+  ll r,g,b,n;
+  cin >> r >> g >> b >> n;
 
-  vll a(n);
-  rep(i,n) cin >> a[i];
-
-  map<ll,ll> m;
-  rep(i,n) m[a[i]]++;
-
+  ll ar,ag,ab;
   ll ans = 0;
-  for(auto it:m)
+
+  rep(i,n / r + 1)
   {
-    ans += it.second * (it.second - 1) / 2;
+    rep(j, (n-i*r) / g + 1)
+    {
+      if((n - i * r - j * g) % b == 0)
+      {
+        ans++;
+      }
+    }
   }
 
-  rep(i,n)
-  {
-    ll buf = 0;
-    buf = ans;
-    buf -= m[a[i]] * (m[a[i]] - 1) / 2;
-    buf += (m[a[i]] - 1) * (m[a[i]] - 2 ) / 2;
-    cout << buf << endl;
-  }
+  cout << ans << endl;
 
   return 0;
 }

@@ -38,30 +38,28 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-
-  ll n;
-  cin >> n;
-
-  vll a(n);
-  rep(i,n) cin >> a[i];
-
-  map<ll,ll> m;
-  rep(i,n) m[a[i]]++;
+  string s;
+  cin >> s;
 
   ll ans = 0;
-  for(auto it:m)
+  ll w_num = 0;
+
+  reverse(all(s));
+
+  rep(i,sz(s))
   {
-    ans += it.second * (it.second - 1) / 2;
+    if(s[i] == 'W')
+    {
+      w_num++;
+    }
+
+    if(s[i] == 'B')
+    {
+      ans += w_num;
+    }
   }
 
-  rep(i,n)
-  {
-    ll buf = 0;
-    buf = ans;
-    buf -= m[a[i]] * (m[a[i]] - 1) / 2;
-    buf += (m[a[i]] - 1) * (m[a[i]] - 2 ) / 2;
-    cout << buf << endl;
-  }
+  cout << ans << endl;
 
   return 0;
 }

@@ -10,7 +10,6 @@ using namespace std;
 // func
 // ------------------------------------------------
 int CalcSumOfDigit(int n);      // 各桁の和を計算する。
-long long getDigit(long long n);      // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
 
@@ -25,63 +24,30 @@ string lower(string str);       // 英字を小文字に変換する。
 #define rvsort(v)     sort(rall((v)))
 #define vi            vector<int>
 #define GCD(a,b)      __gcd((a),(b))
-#define LCM(a,b)      ((a)/GCD((a),(b))*(b))
+#define LCM(a,b)      (a)/GCD((a),(b))*(b)
 #define kiriage(a,b)  ((a)+(b)-1)/(b)
 
 const int INF = 1e9;
 
-typedef long long ll;
-typedef unsigned long long ull;
-typedef vector<ll> vll;
-
 // code
 // ------------------------------------------------
-int main()
-{
+int main() {
 
-  ll n;
-  cin >> n;
+  int n;cin >> n;
+  vi p(n);
+  rep(i,n) cin >> p[i];
 
-  vll a(n);
-  rep(i,n) cin >> a[i];
+  vsort(p);
 
-  map<ll,ll> m;
-  rep(i,n) m[a[i]]++;
-
-  ll ans = 0;
-  for(auto it:m)
-  {
-    ans += it.second * (it.second - 1) / 2;
-  }
-
-  rep(i,n)
-  {
-    ll buf = 0;
-    buf = ans;
-    buf -= m[a[i]] * (m[a[i]] - 1) / 2;
-    buf += (m[a[i]] - 1) * (m[a[i]] - 2 ) / 2;
-    cout << buf << endl;
-  }
+  cout << p[sz(p) - 1] - p[0] << endl;
 
   return 0;
 }
 // funcの実体
 // ------------------------------------------------
-ll getDigit(ll n)
+int CalcSumOfDigit(int n)
 {
-  int i = 1;
-  while(1)
-  {
-    n = n / 10;
-    if(n == 0)
-      break;
-    i++;
-  }
-  return i;
-}
-ll CalcSumOfDigit(ll n)
-{
-  ll s = 0;
+  int s = 0;
   while(n)
   {
     s += n % 10;
