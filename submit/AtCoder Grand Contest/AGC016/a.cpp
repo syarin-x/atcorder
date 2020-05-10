@@ -38,33 +38,33 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  ll n,p;
-  cin >> n >> p;
+  string s;
+  cin >> s;
 
-  ll odd = 0,even = 0;
-
-  rep(i,n)
+  ll ans = LLONG_MAX;
+  for(char c : s)
   {
-    ll buf;
-    buf % 2 == 0 ? even : odd += 1;
-  }
-
-  // even
-  ll en = 1;
-  for(ll i = 1; i <= even; i++)
-  {
-    en *= i;
-  }
-
-  if(p == 1)
-  {
-    for(ll i = 1; i <= odd ; i = i + 2)
+    ll tmp = 0;
+    ll res = 0;
+    for(ll i = 0; i < sz(s); ++i)
     {
-
+      if(c != s[i])
+      {
+        tmp++;
+      }
+      else
+      {
+        res = max(res,tmp);
+        tmp = 0;
+      }
     }
+    res = max(res,tmp);
+    
+    ans = min(ans,res);
   }
-  
-  return 0;
+
+  cout << ans << endl;
+
 }
 // funcの実体
 // ------------------------------------------------

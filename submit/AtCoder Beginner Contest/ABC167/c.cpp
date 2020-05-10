@@ -38,32 +38,62 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  ll n,p;
-  cin >> n >> p;
 
-  ll odd = 0,even = 0;
+  ll n,m,x;
+  cin >> n >> m >> x;
+
+  vll c(n);
+  vector<vector<ll>>  a(n,vector<ll>(m));
 
   rep(i,n)
   {
-    ll buf;
-    buf % 2 == 0 ? even : odd += 1;
-  }
-
-  // even
-  ll en = 1;
-  for(ll i = 1; i <= even; i++)
-  {
-    en *= i;
-  }
-
-  if(p == 1)
-  {
-    for(ll i = 1; i <= odd ; i = i + 2)
+    cin >> c[i];
+    rep(j,m)
     {
-
+      cin >> a[i][j];
     }
   }
-  
+
+  ll ans = LLONG_MAX;
+  bool OK = false;
+
+  for(ll bit = 0;  bit < (1 << n); bit++)
+  {
+    ll val = 0;
+    vll b(m,0);
+    for(ll i = 0; i < n; i++)
+    {
+      if((bit >> i) & 1)
+      {
+        val += c[i];
+        rep(j,m)
+        {
+          b[j] += a[i][j];
+        }
+      }
+    }
+
+    bool flg = true;
+    rep(i,m)
+    {
+      if(b[i] < x)
+      {
+        flg = false;
+      }
+    }
+
+    if(flg)
+    {
+      ans = min(ans,val);
+      OK = true;
+    }
+
+  }
+
+  if(OK) cout << ans << endl;
+  else cout << -1 << endl;
+
+
   return 0;
 }
 // funcの実体

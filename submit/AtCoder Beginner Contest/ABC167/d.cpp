@@ -38,30 +38,64 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  ll n,p;
-  cin >> n >> p;
-
-  ll odd = 0,even = 0;
+  ull n,k;
+  cin >> n >> k;
+  vector<ull> a(n);
 
   rep(i,n)
   {
-    ll buf;
-    buf % 2 == 0 ? even : odd += 1;
+    cin >> a[i];
+    a[i]--;
   }
 
-  // even
-  ll en = 1;
-  for(ll i = 1; i <= even; i++)
-  {
-    en *= i;
-  }
+  map<ull,ull> m;
 
-  if(p == 1)
+  ull pos = 0;
+  ull cnt = 0;
+  ull cir = 0;
+  ull st = 0;
+  m[pos] = cnt;
+
+  bool flg = false;
+  ull nocir = 0;
+
+  while(1)
   {
-    for(ll i = 1; i <= odd ; i = i + 2)
+    ull next = a[pos];
+    pos = next;
+
+    cnt++;
+    if(m.find(next) != m.end())
     {
-
+      cir = cnt - m[next];
+      st = m[next];
+      pos = next;
+      flg = true;
+      break;
     }
+
+    if(cnt == k)
+    {
+      nocir = pos;
+      break;
+    }
+
+    m[next] = cnt;
+  }
+
+  if(flg)
+  {
+    ull buf = (k - st) % cir;
+
+    rep(i,buf)
+    {
+      pos = a[pos];
+    }
+    cout << pos + 1 << endl;
+  }
+  else
+  {
+    cout << nocir + 1 << endl;
   }
   
   return 0;

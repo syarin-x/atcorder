@@ -38,33 +38,48 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  ll n,p;
-  cin >> n >> p;
 
-  ll odd = 0,even = 0;
+  string s;
+  cin >> s;
+  map<char,ll> m;
 
-  rep(i,n)
+  rep(i,sz(s)) m[s[i]]++;
+
+  ll mm = min(m['a'], min(m['b'], m['c']));
+
+  m['a'] -= mm;
+  m['b'] -= mm;
+  m['c'] -= mm;
+
+  ll sum = m['a'] + m['b'] + m['c'];
+
+  bool flg = false;
+  if(sum < 3)
   {
-    ll buf;
-    buf % 2 == 0 ? even : odd += 1;
+    flg = true;
   }
 
-  // even
-  ll en = 1;
-  for(ll i = 1; i <= even; i++)
+  if(sum == 2)
   {
-    en *= i;
-  }
-
-  if(p == 1)
-  {
-    for(ll i = 1; i <= odd ; i = i + 2)
+    ll cnt = 0;
+    for(auto it:m)
     {
-
+      if(it.second > 0)
+      {
+        cnt++;
+      }
+    }
+    if(cnt == 1)
+    {
+      flg = false;
     }
   }
-  
+
+  if(flg) cout << "YES" << endl;
+  else cout << "NO" << endl;
+
   return 0;
+
 }
 // funcの実体
 // ------------------------------------------------

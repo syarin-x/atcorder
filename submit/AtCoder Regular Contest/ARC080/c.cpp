@@ -38,32 +38,44 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  ll n,p;
-  cin >> n >> p;
+  ll n;
+  cin >> n;
 
-  ll odd = 0,even = 0;
+  map<ll,ll> m;
 
   rep(i,n)
   {
     ll buf;
-    buf % 2 == 0 ? even : odd += 1;
-  }
+    cin >> buf;
 
-  // even
-  ll en = 1;
-  for(ll i = 1; i <= even; i++)
-  {
-    en *= i;
-  }
-
-  if(p == 1)
-  {
-    for(ll i = 1; i <= odd ; i = i + 2)
+    if(buf % 4 == 0)
     {
-
+      m[4]++;
+    }
+    else if(buf % 2 == 0)
+    {
+      m[2]++;
+    }
+    else
+    {
+      m[1]++;
     }
   }
+
+  bool ans = true;
+  if(m[4] < m[1])
+  {
+    ans = false;
+  }
   
+  if(m[2] == 0 && m[4] + 1 == m[1])
+  {
+    ans = true;
+  }
+
+  if(ans) cout << "Yes" << endl;
+  else cout << "No" << endl;
+
   return 0;
 }
 // funcの実体

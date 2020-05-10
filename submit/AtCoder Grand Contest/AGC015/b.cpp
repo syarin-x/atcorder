@@ -32,38 +32,34 @@ const int INF = 1e9;
 
 typedef long long ll;
 typedef unsigned long long ull;
-typedef vector<ll> vll;
 
 // code
 // ------------------------------------------------
-int main()
-{
-  ll n,p;
-  cin >> n >> p;
+int main() {
 
-  ll odd = 0,even = 0;
+  string s;
+  cin >> s;
 
-  rep(i,n)
+  ll n = sz(s);
+
+  ll ans = 0;
+
+  for(ll i = 1;i <= n; i++)
   {
-    ll buf;
-    buf % 2 == 0 ? even : odd += 1;
-  }
-
-  // even
-  ll en = 1;
-  for(ll i = 1; i <= even; i++)
-  {
-    en *= i;
-  }
-
-  if(p == 1)
-  {
-    for(ll i = 1; i <= odd ; i = i + 2)
+    if(s[i-1] == 'D')
     {
-
+      ans += i - 1;
+      ans += (n - i) * 2;
+    }
+    else
+    {
+      ans += n - i;
+      ans += (i - 1 ) * 2;
     }
   }
-  
+
+  cout << ans << endl;
+
   return 0;
 }
 // funcの実体
