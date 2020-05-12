@@ -38,78 +38,33 @@ typedef vector<ll> vll;
 // ------------------------------------------------
 int main()
 {
-  ll n,a,b,c,d;
-  cin >> n >> a >> b >> c >> d;
-  string s;cin >> s;
-  a--;
-  b--;
-  c--;
-  d--;
+  ll n,p;
+  cin >> n >> p;
 
-  bool flg_cont = false;  //連続
-  bool flg_chg = c > d;
-  bool flg_tri = false;
+  ll odd = 0,even = 0;
 
-  // 2連続いわのばしょがあるかチェック
-  ll cnt_rock = 0;
-  for(ll i = a; i <= max(c,d); ++i)
+  rep(i,n)
   {
-    if(s[i] == '#')
+    ll buf;
+    cin >> buf;
+    buf % 2 == 0 ? even : odd += 1;
+  }
+
+  ll ans = pow(2,n-1);
+
+  if(odd == 0)
+  {
+    if(p == 1)
     {
-      cnt_rock++;
+      ans = 0;
     }
     else
     {
-      cnt_rock = 0;
-    }
-    
-    if(cnt_rock == 2)
-    {
-      flg_cont = true;
-      break;
+      ans = pow(2,n);
     }
   }
 
-  // 3連続の場所があるかチェック
-  ll cnt_agola = 0;
-  for(ll i = b-1; i <= d + 1; ++i)
-  {
-    if(s[i] == '.')
-    {
-      cnt_agola++;
-    }
-    else
-    {
-      cnt_agola = 0;
-    }
-
-    if(cnt_agola > 2)
-    {
-      flg_tri = true;
-      break;
-    }
-  }
-
-  bool ans = false;
-  if(!flg_chg)
-  {
-    ans = true;
-  }
-  else
-  {
-    if(flg_tri)
-    {
-      ans = true;
-    }
-  }
-
-  if(flg_cont) ans = false;
-
-  if(ans) cout << "Yes" << endl;
-  else cout << "No" << endl;
-  
-
-  
+  cout << ans << endl;
 
   return 0;
 }
