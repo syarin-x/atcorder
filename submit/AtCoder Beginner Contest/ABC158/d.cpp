@@ -10,7 +10,7 @@ using namespace std;
 // func
 // ------------------------------------------------
 int CalcSumOfDigit(int n);      // 各桁の和を計算する。
-int getDigit(int n);            // 数字の桁数を取得する。
+long long getDigit(long long n);      // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
 
@@ -25,53 +25,97 @@ string lower(string str);       // 英字を小文字に変換する。
 #define rvsort(v)     sort(rall((v)))
 #define vi            vector<int>
 #define GCD(a,b)      __gcd((a),(b))
-#define LCM(a,b)      (a)/GCD((a),(b))*(b)
+#define LCM(a,b)      ((a)/GCD((a),(b))*(b))
 #define kiriage(a,b)  ((a)+(b)-1)/(b)
 
 const int INF = 1e9;
 
 typedef long long ll;
 typedef unsigned long long ull;
+typedef vector<ll> vll;
 
 // code
 // ------------------------------------------------
-int main() {
+int main()
+{
+  string s;
+  ll q;
+  cin >> s >> q;
 
-  ll a,b;
-  cin >> a >> b;
+  bool rev_flg = false;
+  deque<char> deq;
 
-  ll aa = a / 0.08;
-  ll bb = b / 0.1;
-  for(ll i = 1;i <= 1100; i++)
+  rep(i,sz(s))
   {
-    if((ll)(i * 0.08) == a && (ll)(i * 0.1) == b)
-    {
-      cout << i << endl;
-      return 0;
-    }
+    deq.push_back(s[i]);
   }
 
-  cout << -1 << endl;
+  rep(i,q)
+  {
+    ll t; cin >> t;
 
+    if(t == 1)
+    {
+      rev_flg = !rev_flg;
+    }
+    else if(t == 2)
+    {
+      ll f;
+      char c;
+      cin >> f >> c;
+
+      if( (f == 1 && !rev_flg) || (f == 2 && rev_flg) )
+      {
+        deq.push_front(c);
+      }
+      else
+      {
+        deq.push_back(c);
+      }
+    }   
+  }
+
+  ll num = deq.size();
+
+  if(!rev_flg)
+  {
+    rep(i,num)
+    {
+      cout << deq.front();
+      deq.pop_front();
+    }
+  }
+  else
+  {
+    rep(i,num)
+    {
+      cout << deq.back();
+      deq.pop_back();
+    }
+  }
+  
+
+  cout << endl;
+  
   return 0;
 }
 // funcの実体
 // ------------------------------------------------
-int getDigit(int n)
+ll getDigit(ll n)
 {
   int i = 1;
   while(1)
   {
     n = n / 10;
-    if(n == 1)
+    if(n == 0)
       break;
     i++;
   }
   return i;
 }
-int CalcSumOfDigit(int n)
+ll CalcSumOfDigit(ll n)
 {
-  int s = 0;
+  ll s = 0;
   while(n)
   {
     s += n % 10;

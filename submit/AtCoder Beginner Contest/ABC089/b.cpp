@@ -10,7 +10,6 @@ using namespace std;
 // func
 // ------------------------------------------------
 int CalcSumOfDigit(int n);      // 各桁の和を計算する。
-int getDigit(int n);            // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
 
@@ -30,45 +29,30 @@ string lower(string str);       // 英字を小文字に変換する。
 
 const int INF = 1e9;
 
-typedef long long ll;
-typedef unsigned long long ull;
-
 // code
 // ------------------------------------------------
 int main() {
 
-  ll a,b;
-  cin >> a >> b;
+  int n;
+  map<char,int> m;
 
-  ll aa = a / 0.08;
-  ll bb = b / 0.1;
-  for(ll i = 1;i <= 1100; i++)
+  cin >> n;
+
+  rep(i,n)
   {
-    if((ll)(i * 0.08) == a && (ll)(i * 0.1) == b)
-    {
-      cout << i << endl;
-      return 0;
-    }
+    char c;
+    cin >> c;
+    m[c]++;
   }
 
-  cout << -1 << endl;
+  if(sz(m) == 4) cout << "Four" << endl;
+  else cout << "Three" << endl;
+
 
   return 0;
 }
 // funcの実体
 // ------------------------------------------------
-int getDigit(int n)
-{
-  int i = 1;
-  while(1)
-  {
-    n = n / 10;
-    if(n == 1)
-      break;
-    i++;
-  }
-  return i;
-}
 int CalcSumOfDigit(int n)
 {
   int s = 0;
