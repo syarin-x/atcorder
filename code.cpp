@@ -1,7 +1,6 @@
 // include
 // ------------------------------------------------
 #include <bits/stdc++.h>
-#include <vector>
 #include <algorithm>
 #include <math.h>
 
@@ -13,6 +12,20 @@ int CalcSumOfDigit(int n);      // 各桁の和を計算する。
 int getDigit(int n);            // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
+
+// class
+// ------------------------------------------------
+class Combi
+{
+  public:
+    Combi();
+    long long Combination(long long n, long long k);
+  private:
+    vector<vector<long long>> memo;
+    long long n_num;
+    long long k_num;
+    void Resize(long long n, long long k);
+};
 
 // define
 // ------------------------------------------------
@@ -37,21 +50,7 @@ typedef unsigned long long ull;
 // ------------------------------------------------
 int main() {
 
-  ll a,b;
-  cin >> a >> b;
 
-  ll aa = a / 0.08;
-  ll bb = b / 0.1;
-  for(ll i = 1;i <= 1100; i++)
-  {
-    if((ll)(i * 0.08) == a && (ll)(i * 0.1) == b)
-    {
-      cout << i << endl;
-      return 0;
-    }
-  }
-
-  cout << -1 << endl;
 
   return 0;
 }
@@ -102,4 +101,45 @@ string lower(string str)
     }
   }
   return str;
+}
+
+
+Combi::Combi(){
+  n_num = -1;
+  k_num = -1;
+};
+ll Combi::Combination(ll n, ll k)
+{
+  Resize(n,k);
+
+  ll ret;
+  if(memo[n][k] != 0)
+  {
+    ret = memo[n][k];
+  }
+  else if(n == k || k == 0)
+  {
+    memo[n][k] = 1;
+    ret = 1;
+  }
+  else
+  {
+    ret = Combination(n - 1, k - 1) + Combination(n - 1, k);
+    memo[n][k] = ret;
+  }
+  return ret;
+}
+
+void Combi::Resize(ll n, ll k)
+{
+  if(n_num <= n || k_num <= k)
+  {
+    n_num = (n + 1) * 2;
+    k_num = (k + 1) * 2;
+    memo.resize(n_num);
+    for(auto itr = memo.begin(); itr != memo.end(); ++itr)
+    {
+      itr->resize(k_num);
+    }
+  }
 }
