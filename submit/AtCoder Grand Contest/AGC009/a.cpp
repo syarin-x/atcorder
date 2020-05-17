@@ -50,14 +50,27 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  ll a,b,c;
-  cin >> a >> b >> c;
+  ll n;cin >> n;
 
-  ll right = c - a - b;
-  ll left = 4 * a * b;
+  vll a(n),b(n),c(n,0);
 
-  if(left < right * right && right > 0) cout << "Yes" << endl;
-  else cout << "No" << endl;
+  rep(i,n) cin >> a[i] >> b[i];
+
+  for(ll i = n-1; i >= 0; --i)
+  {
+    if(i == n - 1)
+    {
+      c[i] = kiriage(a[i],b[i]) * b[i] - a[i];
+    }
+    else
+    {
+      ll buf = kiriage(a[i] + c[i+1], b[i]) * b[i];
+      c[i] = buf - a[i];
+    }
+  }
+
+  cout << c[0] << endl;
+
 
   return 0;
 }

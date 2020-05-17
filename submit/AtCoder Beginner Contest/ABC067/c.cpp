@@ -50,14 +50,24 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  ll a,b,c;
-  cin >> a >> b >> c;
+  ll n;cin >> n;
+  vll a(n),r(n+1,0);
 
-  ll right = c - a - b;
-  ll left = 4 * a * b;
+  rep(i,n) cin >> a[i];
 
-  if(left < right * right && right > 0) cout << "Yes" << endl;
-  else cout << "No" << endl;
+  rep(i,n) r[i+1] = r[i] + a[i];
+
+  ll sum = r[n];
+
+  ll ans = LLONG_MAX;
+
+  for(ll i = 1;i < n; ++i)
+  {
+    ll ara = sum - r[i];
+    ans = min(ans, abs(ara - r[i]));
+  }
+
+  cout << ans << endl;
 
   return 0;
 }

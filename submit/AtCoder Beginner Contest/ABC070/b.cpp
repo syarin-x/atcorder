@@ -1,6 +1,7 @@
 // include
 // ------------------------------------------------
 #include <bits/stdc++.h>
+#include <vector>
 #include <algorithm>
 #include <math.h>
 
@@ -9,23 +10,8 @@ using namespace std;
 // func
 // ------------------------------------------------
 int CalcSumOfDigit(int n);      // 各桁の和を計算する。
-int getDigit(int n);            // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
-
-// class
-// ------------------------------------------------
-class Combi
-{
-  public:
-    Combi();
-    long long Combination(long long n, long long k);
-  private:
-    vector<vector<long long>> memo;
-    long long n_num;
-    long long k_num;
-    void Resize(long long n, long long k);
-};
 
 // define
 // ------------------------------------------------
@@ -43,38 +29,37 @@ class Combi
 
 const int INF = 1e9;
 
-typedef long long ll;
-typedef unsigned long long ull;
-typedef vector<long> vll;
 // code
 // ------------------------------------------------
 int main() {
 
-  ll a,b,c;
-  cin >> a >> b >> c;
+  int a,b,c,d;
+  cin >> a >> b >> c >> d;
 
-  ll right = c - a - b;
-  ll left = 4 * a * b;
+  if(a <= c && c <= b)
+  {
+    cout << min(b - c,d - c) << endl;
+  }
+  else if(a <= d && d <= b)
+  {
+    cout << min(d - a,d - c) << endl;
+  }
+  else if(c <= a && a <= d && c <= b && b <= d)
+  {
+    cout << b - a << endl;
+  }
+  else
+  {
+    cout << 0 << endl;
+  }
+  
 
-  if(left < right * right && right > 0) cout << "Yes" << endl;
-  else cout << "No" << endl;
+
 
   return 0;
 }
 // funcの実体
 // ------------------------------------------------
-int getDigit(int n)
-{
-  int i = 1;
-  while(1)
-  {
-    n = n / 10;
-    if(n == 1)
-      break;
-    i++;
-  }
-  return i;
-}
 int CalcSumOfDigit(int n)
 {
   int s = 0;
@@ -108,45 +93,4 @@ string lower(string str)
     }
   }
   return str;
-}
-
-
-Combi::Combi(){
-  n_num = -1;
-  k_num = -1;
-};
-ll Combi::Combination(ll n, ll k)
-{
-  Resize(n,k);
-
-  ll ret;
-  if(memo[n][k] != 0)
-  {
-    ret = memo[n][k];
-  }
-  else if(n == k || k == 0)
-  {
-    memo[n][k] = 1;
-    ret = 1;
-  }
-  else
-  {
-    ret = Combination(n - 1, k - 1) + Combination(n - 1, k);
-    memo[n][k] = ret;
-  }
-  return ret;
-}
-
-void Combi::Resize(ll n, ll k)
-{
-  if(n_num <= n || k_num <= k)
-  {
-    n_num = (n + 1) * 2;
-    k_num = (k + 1) * 2;
-    memo.resize(n_num);
-    for(auto itr = memo.begin(); itr != memo.end(); ++itr)
-    {
-      itr->resize(k_num);
-    }
-  }
 }

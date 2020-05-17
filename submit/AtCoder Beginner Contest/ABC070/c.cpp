@@ -50,14 +50,23 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  ll a,b,c;
-  cin >> a >> b >> c;
+  ll n;cin >> n;
 
-  ll right = c - a - b;
-  ll left = 4 * a * b;
+  ll t;
 
-  if(left < right * right && right > 0) cout << "Yes" << endl;
-  else cout << "No" << endl;
+  rep(i,n)
+  {
+    if(i == 0)
+    {
+      cin >> t;
+    }
+    else
+    {
+      ll buf;cin >> buf;
+      t = LCM(t,buf);
+    }
+  }
+  cout << t << endl;
 
   return 0;
 }

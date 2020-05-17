@@ -50,15 +50,29 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  ll a,b,c;
-  cin >> a >> b >> c;
+  ll x,y;
+  cin >> x >> y;
 
-  ll right = c - a - b;
-  ll left = 4 * a * b;
+  ll ans = 0;
 
-  if(left < right * right && right > 0) cout << "Yes" << endl;
-  else cout << "No" << endl;
+  if(x * y > 0)
+  {
+    ans = abs(y-x) + ( x < y ? 0 : 2);
+  }
+  else if(x == 0)
+  {
+    ans = abs(y) + ( y < 0 ? 1 : 0);
+  }
+  else if(y == 0)
+  {
+    ans = abs(x) + ( x < 0 ? 0 : 1);
+  }
+  else
+  {
+    ans = abs( y + x ) + 1;
+  }  
 
+  cout << ans << endl;
   return 0;
 }
 // funcの実体
