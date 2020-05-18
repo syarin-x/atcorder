@@ -50,28 +50,32 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  string s;
-  cin >> s;
+  ll n;
+  cin >> n;
+  ll ans = n % 10;
 
-  bool ans = true;
-  rep(i,sz(s))
+  switch (ans)
   {
-    if(i % 2 == 0)
-    {
-      if(s[i] != 'h')
-        ans = false;
-    }
-    else
-    {
-      if(s[i] != 'i')
-        ans = false;
-    }
+    case 2:
+    case 4:
+    case 5:
+    case 7:
+    case 9:
+      cout << "hon" << endl;
+      break;
+    case 0:
+    case 1:
+    case 6:
+    case 8:
+     cout << "pon" << endl;
+     break;
+    case 3:
+      cout << "bon" << endl;
+      break;
+     
   }
 
-  if(sz(s) % 2) ans = false;
 
-  if(ans) cout << "Yes" << endl;
-  else cout << "No" << endl;
 
 
   return 0;

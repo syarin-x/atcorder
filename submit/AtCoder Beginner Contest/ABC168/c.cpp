@@ -50,29 +50,53 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  string s;
-  cin >> s;
+  ll a,b,h,m;
+  cin >> a >> b >> h >> m;
 
-  bool ans = true;
-  rep(i,sz(s))
+  double m_ang = m * 6.0;
+  double h_ang = h * 30.0 + m / 2.0;
+  if(h_ang >= 360.0) h_ang -= 360.0;
+
+  double aida = abs(h_ang - m_ang);
+
+  if(aida == 180.0)
   {
-    if(i % 2 == 0)
-    {
-      if(s[i] != 'h')
-        ans = false;
-    }
-    else
-    {
-      if(s[i] != 'i')
-        ans = false;
-    }
+    cout << fixed << setprecision(15) << (double)(a + b) << endl;
+    return 0;
   }
 
-  if(sz(s) % 2) ans = false;
+  if(aida == 0.0)
+  {
+    cout << fixed << setprecision(15) << (double)abs(b - a) << endl;
+    return 0;
+  }
 
-  if(ans) cout << "Yes" << endl;
-  else cout << "No" << endl;
+  if(aida > 180.0)
+  {
+    aida = 360.0 - aida;
+  }
 
+  double tei,taka;
+
+  double PI = 3.141592653589793;
+
+  if(aida > 90.0)
+  {
+    aida = 180.0 - aida;
+    tei = b * cos(PI / 180 * aida) + (double)a;
+    taka = b * sin(PI / 180 * aida);
+  }
+  else
+  {
+    ll moto = max(a,b);
+    ll sub = min(a,b);
+    tei = moto * cos(PI / 180 * aida) - (double)sub;
+    taka = moto * sin(PI / 180 * aida);
+  }
+  
+  double ans = sqrt(tei*tei + taka *taka);
+
+  cout << fixed << setprecision(15) << ans << endl;
 
   return 0;
 }

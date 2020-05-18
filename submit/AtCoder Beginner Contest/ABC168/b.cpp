@@ -49,30 +49,19 @@ typedef vector<long> vll;
 // code
 // ------------------------------------------------
 int main() {
-
+  ll k;
   string s;
-  cin >> s;
+  cin >> k >> s;
 
-  bool ans = true;
-  rep(i,sz(s))
+  if(sz(s) <= k)
+    cout << s << endl;
+  else
   {
-    if(i % 2 == 0)
-    {
-      if(s[i] != 'h')
-        ans = false;
-    }
-    else
-    {
-      if(s[i] != 'i')
-        ans = false;
-    }
+    rep(i,k)
+      cout << s[i];
+    cout <<"..." << endl;
   }
-
-  if(sz(s) % 2) ans = false;
-
-  if(ans) cout << "Yes" << endl;
-  else cout << "No" << endl;
-
+  
 
   return 0;
 }

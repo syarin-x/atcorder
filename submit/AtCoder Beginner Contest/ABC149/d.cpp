@@ -50,29 +50,50 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  string s;
-  cin >> s;
+  ll n,k,r,s,p;
+  string t;
+  cin >> n >> k >> r >> s >> p >> t;
 
-  bool ans = true;
-  rep(i,sz(s))
+  vector<char> result(k,'0');
+
+  ll ans = 0;
+
+  rep(i,n)
   {
-    if(i % 2 == 0)
+    char vs = t[i];
+    char hand;
+    ll point = 0;
+
+    switch(vs)
     {
-      if(s[i] != 'h')
-        ans = false;
+      case 'r':
+        hand = 'p';
+        point = p;
+        break;
+      case 's':
+        hand = 'r';
+        point = r;
+        break;
+      case 'p':
+        hand = 's';
+        point = s;
+        break;
+      default:
+        break;
+    }
+    
+    if(result[i%k] != hand)
+    {
+      ans += point;
+      result[i%k] = hand;
     }
     else
     {
-      if(s[i] != 'i')
-        ans = false;
+      result[i%k] = '0';
     }
   }
 
-  if(sz(s) % 2) ans = false;
-
-  if(ans) cout << "Yes" << endl;
-  else cout << "No" << endl;
-
+  cout << ans << endl;
 
   return 0;
 }

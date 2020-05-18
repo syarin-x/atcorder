@@ -50,29 +50,71 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  string s;
-  cin >> s;
+   ll n,m;
+   cin >> n >> m;
+
+  vector<vector<ll>> Graph(n);
+  vll a(n,-1);
+
+  rep(i,m)
+  {
+    ll a,b;
+    cin >> a >> b;
+    a--;b--;
+    Graph[a].push_back(b);
+    Graph[b].push_back(a);
+  }
+
+  queue<ll> q;
+  
+  ll now = 0;
+  ll before = 0;
+  vll seen(n);
+  q.push(now);
+
+  while(!q.empty())
+  {
+    now = q.front();
+    q.pop();
+
+    if(seen[now] == 1)
+    {
+      continue;
+    }
+
+    seen[now] = 1;
+
+    for(auto itr = Graph[now].begin(); itr != Graph[now].end(); ++itr)
+    {
+      ll next = *itr;
+      if(a[next] == -1)
+      {
+        a[next] = now;
+      }
+      if(seen[next] != 1)
+      {
+        q.push(next);
+      }  
+    }
+    before = now;
+  }
 
   bool ans = true;
-  rep(i,sz(s))
+  for(ll i = 1; i < n; ++i)
   {
-    if(i % 2 == 0)
+    if(a[i] == -1)
     {
-      if(s[i] != 'h')
-        ans = false;
-    }
-    else
-    {
-      if(s[i] != 'i')
-        ans = false;
+      ans = false;
+      break;      
     }
   }
 
-  if(sz(s) % 2) ans = false;
-
   if(ans) cout << "Yes" << endl;
   else cout << "No" << endl;
-
+  for(ll i = 1;i < n; ++i)
+  {
+    cout << a[i]  + 1 << endl;
+  }
 
   return 0;
 }

@@ -50,29 +50,46 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  string s;
-  cin >> s;
+  ll n;cin >> n;
+  vector<string>  ss(n);
+  vector<map<char,ll>> sm(n);
 
-  bool ans = true;
-  rep(i,sz(s))
+  rep(i,n)
   {
-    if(i % 2 == 0)
+    cin >> ss[i];
+    rep(j,sz(ss[i]))
     {
-      if(s[i] != 'h')
-        ans = false;
-    }
-    else
-    {
-      if(s[i] != 'i')
-        ans = false;
+      sm[i][ss[i][j]]++;
     }
   }
 
-  if(sz(s) % 2) ans = false;
+  map<char,ll> ans;
+  for(auto itr = sm[0].begin(); itr != sm[0].end(); ++itr)
+  {
+    char char_c = itr->first;
+    ll char_cnt = itr->second;
 
-  if(ans) cout << "Yes" << endl;
-  else cout << "No" << endl;
+    rep(i,sz(sm))
+    {
+      ll bb = sm[i][char_c];
+      char_cnt = min(char_cnt,bb);
 
+    }
+
+    if(char_cnt > 0)
+    {
+      ans[char_c] = char_cnt;
+    }
+  }
+
+  for(auto itr = ans.begin(); itr!= ans.end(); ++itr)
+  {
+    rep(i,itr->second)
+    {
+      cout << itr->first;
+    }
+  }
+  cout << endl;
 
   return 0;
 }

@@ -50,29 +50,26 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  string s;
-  cin >> s;
+  ll a,b,h,m;
+  cin >> a >> b >> h >> m;
 
-  bool ans = true;
-  rep(i,sz(s))
+  double m_ang = m * 6.0;
+  double h_ang = h * 30.0 + m / 2.0;
+  if(h_ang >= 360.0) h_ang -= 360.0;
+
+  double aida = abs(h_ang - m_ang);
+
+  double PI = 3.141592653589793;
+
+  if(aida > 180.0)
   {
-    if(i % 2 == 0)
-    {
-      if(s[i] != 'h')
-        ans = false;
-    }
-    else
-    {
-      if(s[i] != 'i')
-        ans = false;
-    }
+    aida = 360.0 - aida;
   }
 
-  if(sz(s) % 2) ans = false;
+  double ans = a * a + b * b - 2 * a * b * cos(PI /180.0 * aida);
 
-  if(ans) cout << "Yes" << endl;
-  else cout << "No" << endl;
 
+  cout << fixed << setprecision(15) << sqrt(ans) << endl;
 
   return 0;
 }
