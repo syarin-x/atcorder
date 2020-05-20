@@ -20,7 +20,6 @@ class Combi
   public:
     Combi();
     long long Combination(long long n, long long k);
-    long long nPk_modp(long long n, long long k, long long p);
   private:
     vector<vector<long long>> memo;
     long long n_num;
@@ -51,7 +50,14 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
+  ll n,m;
+  cin >> n >> m;
 
+  ll once = 1900 * m + 100 * ( n - m );
+
+  ll p = pow(2,m);
+
+  cout << p * once << endl;
 
   return 0;
 }
@@ -144,14 +150,3 @@ void Combi::Resize(ll n, ll k)
     }
   }
 }
-
-long long Combi::nPk_modp(long long n, long long k, long long p)
-{
-  ll ans = 1;
-  for(long long i = k; i <= n; i++)
-  {
-    ans = (ans * i) % p;
-  }
-
-  return ans;
-};

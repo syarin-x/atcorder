@@ -20,7 +20,6 @@ class Combi
   public:
     Combi();
     long long Combination(long long n, long long k);
-    long long nPk_modp(long long n, long long k, long long p);
   private:
     vector<vector<long long>> memo;
     long long n_num;
@@ -51,7 +50,63 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
+  string s;
+  ll k;
+  cin >> s >> k;
 
+  vector<pair<char,ll>> z;
+  set<char> se;
+
+  rep(i,sz(s))
+  {
+    se.insert(s[i]);
+    pair<char,ll> one;
+    if(i == 0)
+    {
+      one.first = s[i];
+      one.second = 1;
+      z.push_back(one);
+    }
+    else
+    {
+      one = z[sz(z) - 1];
+      if(one.first == s[i])
+      {
+        z[sz(z) - 1].second++;
+      }
+      else
+      {
+        one.first = s[i];
+        one.second = 1;
+        z.push_back(one);
+      }
+    }
+  }
+
+  ll ans = 0;
+
+  if(sz(se) == 1)
+  {
+    ll len = sz(s);
+    ans = len * k / 2;
+  }
+  else
+  {
+    ll once = 0;
+    rep(i,sz(z))
+    {
+      once += z[i].second / 2;
+    }
+    ans = once * k;
+
+    if(s[0] == s[sz(s) - 1])
+    {
+      ll minus = (z[0].second + z[sz(z) - 1].second) / 2 - z[0].second / 2 - z[sz(z) - 1].second / 2;
+      ans += minus * (k - 1);
+    }
+  }
+
+  cout << ans << endl;
 
   return 0;
 }
@@ -144,14 +199,3 @@ void Combi::Resize(ll n, ll k)
     }
   }
 }
-
-long long Combi::nPk_modp(long long n, long long k, long long p)
-{
-  ll ans = 1;
-  for(long long i = k; i <= n; i++)
-  {
-    ans = (ans * i) % p;
-  }
-
-  return ans;
-};

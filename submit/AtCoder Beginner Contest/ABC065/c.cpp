@@ -51,6 +51,26 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
+  ll n,m;
+  cin >> n >> m;
+
+  ll mo = 1000000007;
+
+  ll ans;
+  if(abs(n - m) > 1)
+  {
+    ans = 0;
+  }
+  else
+  {
+    Combi com;
+    ans = ((com.nPk_modp(n,1,mo) % mo ) * com.nPk_modp(m,1,mo)) % mo;
+    if(n == m)
+      ans = (ans * 2) % mo;
+  }
+
+  cout << ans << endl;
+  
 
 
   return 0;
