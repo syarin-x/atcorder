@@ -51,61 +51,22 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-  ll n;
-  cin >> n;
+  string s;
+  cin >> s;
 
-  vll b(n);
-  vll ans;
+  ll ans = 0;
 
-  rep(i,n) cin >> b[i];
+  char bef = s[0];
 
-  rep(i,n) // n個取り除く
+  rep(i,sz(s))
   {
-    bool flg = false;
-    ll index = sz(b);
-    for(auto itr = b.rbegin(); itr != b.rend(); ++itr) // どれを取り除けるか？
-    {
-      if(index == *itr) // 発見
-      {
-        flg = true;
-        ans.push_back(*itr);
-        break;
-      }
-      index--;
-    }
+    if( i == 0) continue;
+    if(s[i] != bef) ans++;
 
-    if(!flg)
-    {
-      cout << -1 << endl;
-      return 0;
-    }
-    else
-    {
-      vll buf(sz(b) - 1);
-      rep(i, index - 1)
-      {
-        buf[i] = b[i];
-      }
-
-      for(ll i = index; i < sz(b); ++i)
-      {
-        buf[i-1] = b[i];
-      }
-
-      b.resize(sz(b)-1);
-
-      rep(i,sz(b))
-      {
-        b[i] = buf[i];
-      }
-    }
-    
+    bef = s[i];
   }
 
-  for(auto itr = ans.rbegin(); itr != ans.rend(); ++itr)
-  {
-    cout << *itr << endl;
-  }
+  cout << ans << endl;
 
   return 0;
 }

@@ -50,63 +50,25 @@ typedef vector<long> vll;
 // code
 // ------------------------------------------------
 int main() {
-
   ll n;
-  cin >> n;
+  string s;
+  cin >> n >> s;
 
-  vll b(n);
-  vll ans;
-
-  rep(i,n) cin >> b[i];
-
-  rep(i,n) // n個取り除く
+  map<char,ll> m;
+  rep(i,n)
   {
-    bool flg = false;
-    ll index = sz(b);
-    for(auto itr = b.rbegin(); itr != b.rend(); ++itr) // どれを取り除けるか？
-    {
-      if(index == *itr) // 発見
-      {
-        flg = true;
-        ans.push_back(*itr);
-        break;
-      }
-      index--;
-    }
-
-    if(!flg)
-    {
-      cout << -1 << endl;
-      return 0;
-    }
-    else
-    {
-      vll buf(sz(b) - 1);
-      rep(i, index - 1)
-      {
-        buf[i] = b[i];
-      }
-
-      for(ll i = index; i < sz(b); ++i)
-      {
-        buf[i-1] = b[i];
-      }
-
-      b.resize(sz(b)-1);
-
-      rep(i,sz(b))
-      {
-        b[i] = buf[i];
-      }
-    }
-    
+    m[s[i]]++;
   }
 
-  for(auto itr = ans.rbegin(); itr != ans.rend(); ++itr)
+  ll ans = 1;
+  ll mo = 1000000007;
+  
+  for(auto it: m)
   {
-    cout << *itr << endl;
+    ans = ans * (it.second + 1) % mo;
   }
 
+  cout << ans - 1 << endl;
   return 0;
 }
 // funcの実体
