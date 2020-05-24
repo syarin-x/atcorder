@@ -50,6 +50,66 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
+    ll n;
+    cin >> n;
+    map<ll,ll> m;
+
+    rep(i,n)
+    {
+        ll buf;
+        cin >> buf;
+        m[buf]++;
+    }
+
+    bool ans = false;
+    if(sz(m) > 3)
+    {
+        ans = false;
+    }
+    else
+    {
+        if(sz(m) == 1)
+        {
+            if(m.begin()->first == 0)
+                ans = true;
+        }
+        else
+        {
+            if(n % 3 == 0)
+            {
+                if(sz(m) == 2)
+                {
+                    ll f_v = m.begin()->first;
+                    ll f_n = m.begin()->second;
+
+                    if(f_v == 0 && f_n == n / 3)
+                        ans = true;
+                }
+                else if(sz(m) == 3)
+                {
+                    vll v(3),num(3);
+                    ll j = 0;
+                    for(auto itr = m.begin(); itr != m.end(); ++itr)
+                    {
+                        v[j] = itr->first;
+                        num[j] = itr->second;
+                        ++j;
+                    }
+
+                    if((num[0] == num[1] && num[1] == num[2] && num[2] == num[0])
+                        && (((v[0] ^ v[1]) ^ v[2]) == 0))
+                    {
+                        ans = true;
+                    }    
+                }
+            }
+        }
+
+    }
+
+    if(ans) cout << "Yes" << endl;
+    else cout << "No" << endl;
+
 
     return 0;
 }
