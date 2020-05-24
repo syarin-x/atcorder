@@ -1,6 +1,7 @@
 // include
 // ------------------------------------------------
 #include <bits/stdc++.h>
+#include <algorithm>
 #include <math.h>
 
 using namespace std;
@@ -50,44 +51,28 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    string s;
-    cin >> s;
+    ll n;
+    cin >> n;
 
-    if(sz(s) != 26)
+    vll a(n);
+    rep(i,n) cin >> a[i];
+
+    vsort(a);
+
+    ll ans = 0;
+    rep(i,n)
     {
-        for(char c = 'a'; c <= 'z'; ++c)
+        for(ll j = i + 1; j < n; ++j)
         {
-            if(s.find(c) == std::string::npos)
-            {
-                s = s + c;
-                break;
-            }
+            ll l;
+            l = lower_bound(all(a), a[j] + a[i]) - a.begin();
+
+            ans += max(l - j - 1 , (ll)0);
+
         }
     }
-    else
-    {
-        string t;
-        t = s;
-        if(next_permutation(all(t)))
-        {
-            string res;
-            res = "";
-            rep(i,sz(s))
-            {
-                res += t[i];
-                if(t[i] != s[i])
-                    break;
-            }
-            s = res;
-        }
-        else
-        {
-            s = "-1";
-        }
-        
-    }
-    
-    cout << s << endl;
+
+    cout << ans << endl;
 
     return 0;
 }

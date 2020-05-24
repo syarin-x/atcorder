@@ -1,6 +1,8 @@
 // include
 // ------------------------------------------------
 #include <bits/stdc++.h>
+#include <vector>
+#include <algorithm>
 #include <math.h>
 
 using namespace std;
@@ -11,21 +13,6 @@ int CalcSumOfDigit(int n);      // 各桁の和を計算する。
 int getDigit(int n);            // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
-
-// class
-// ------------------------------------------------
-class Combi
-{
-  public:
-    Combi();
-    long long Combination(long long n, long long k);
-    long long nPk_modp(long long n, long long k, long long p);
-  private:
-    vector<vector<long long>> memo;
-    long long n_num;
-    long long k_num;
-    void Resize(long long n, long long k);
-};
 
 // define
 // ------------------------------------------------
@@ -45,51 +32,32 @@ const int INF = 1e9;
 
 typedef long long ll;
 typedef unsigned long long ull;
-typedef vector<long> vll;
+
 // code
 // ------------------------------------------------
 int main() {
 
-    string s;
-    cin >> s;
+  ll n;cin >> n;
+  string s;
+  cin >> s;
 
-    if(sz(s) != 26)
-    {
-        for(char c = 'a'; c <= 'z'; ++c)
-        {
-            if(s.find(c) == std::string::npos)
-            {
-                s = s + c;
-                break;
-            }
-        }
-    }
-    else
-    {
-        string t;
-        t = s;
-        if(next_permutation(all(t)))
-        {
-            string res;
-            res = "";
-            rep(i,sz(s))
-            {
-                res += t[i];
-                if(t[i] != s[i])
-                    break;
-            }
-            s = res;
-        }
-        else
-        {
-            s = "-1";
-        }
-        
-    }
-    
-    cout << s << endl;
+  char bef = s[0];
+  ll num = 1;
 
-    return 0;
+  rep(i,n)
+  {
+    if(bef == s[i])
+    {
+      continue;
+    }
+
+    bef = s[i];
+    num++;
+  }
+
+  cout << num << endl;
+
+  return 0;
 }
 // funcの実体
 // ------------------------------------------------
@@ -139,55 +107,3 @@ string lower(string str)
   }
   return str;
 }
-
-
-Combi::Combi(){
-  n_num = -1;
-  k_num = -1;
-};
-ll Combi::Combination(ll n, ll k)
-{
-  Resize(n,k);
-
-  ll ret;
-  if(memo[n][k] != 0)
-  {
-    ret = memo[n][k];
-  }
-  else if(n == k || k == 0)
-  {
-    memo[n][k] = 1;
-    ret = 1;
-  }
-  else
-  {
-    ret = Combination(n - 1, k - 1) + Combination(n - 1, k);
-    memo[n][k] = ret;
-  }
-  return ret;
-}
-
-void Combi::Resize(ll n, ll k)
-{
-  if(n_num <= n || k_num <= k)
-  {
-    n_num = (n + 1) * 2;
-    k_num = (k + 1) * 2;
-    memo.resize(n_num);
-    for(auto itr = memo.begin(); itr != memo.end(); ++itr)
-    {
-      itr->resize(k_num);
-    }
-  }
-}
-
-long long Combi::nPk_modp(long long n, long long k, long long p)
-{
-  ll ans = 1;
-  for(long long i = k; i <= n; i++)
-  {
-    ans = (ans * i) % p;
-  }
-
-  return ans;
-};
