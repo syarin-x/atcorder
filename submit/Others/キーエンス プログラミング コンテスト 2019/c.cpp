@@ -50,62 +50,61 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n,m;
-    cin >> n >> m;
+    ll n;cin >> n;
 
-    vector<vll> light(m);
-    vll p(n);
+    vll a(n),b(n),c(n);
 
-    rep(i,m)
+    ll a_sum = 0;
+    ll b_sum = 0;
+
+    rep(i,n)
     {
-        ll k;
-        cin >> k;
-
-        rep(j,k)
-        {
-            ll s;
-            cin >> s;
-            s--;
-            light[i].push_back(s);
-        }
+        cin >> a[i];
+        a_sum += a[i];
     }
 
-    rep(i,m) cin >> p[i];
-
-    ll ans = 0;
-
-    for(ll bit = 0; bit < (1 << n); ++bit)
+    rep(i,n)
     {
-        // switchのon_off状態をわかりやすくする
-        vector<bool> on_off(n,false);
-        for(ll i = 0; i < n; ++i)
+        cin >> b[i];
+        b_sum += b[i];
+    }
+
+    if(b_sum > a_sum)
+    {
+        cout << -1 << endl;
+    }
+    else
+    {
+        ll chg_val = 0;
+        ll ans = 0;
+        rep(i,n)
         {
-            if(bit & (1 << i))
+            c[i] = a[i] - b[i];
+            if(c[i] < 0)
             {
-                on_off[i] = true;
+                chg_val += abs(c[i]);
+                ans++;
             }
         }
+        
+        vsort(c);
 
-        // 各ライトがon_offどちらかを作る
-        bool on = true;
-        for(ll i = 0; i < m; ++i)
+        for(auto itr = c.rbegin(); itr != c.rend(); ++itr)
         {
-            ll cnt = 0;
-            for(auto itr = light[i].begin(); itr != light[i].end(); ++itr)
+            if(chg_val > 0)
             {
-                if(on_off[*itr]) cnt++;
+                chg_val -= *itr;
+                ans++;
             }
-
-            if(cnt % 2 != p[i])
+            else
             {
-                on = false;
                 break;
-            } 
+            }
         }
-        if(on) ans++;
+        cout << ans << endl;
     }
+    
 
-    cout << ans << endl;
 
     return 0;
 }

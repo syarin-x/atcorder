@@ -53,59 +53,39 @@ int main() {
     ll n,m;
     cin >> n >> m;
 
-    vector<vll> light(m);
-    vll p(n);
+    vector<bool> red_possibility(n,false);
+    vll boal_num(n,1);
+    red_possibility[0] = true;
 
     rep(i,m)
     {
-        ll k;
-        cin >> k;
+        ll x,y;
+        cin >> x >> y;
+        x--;y--;
 
-        rep(j,k)
+        if(red_possibility[x])
+            red_possibility[y] = true;
+        
+        if(boal_num[x] > 0)
         {
-            ll s;
-            cin >> s;
-            s--;
-            light[i].push_back(s);
+            boal_num[x]--;
+            boal_num[y]++;
         }
-    }
 
-    rep(i,m) cin >> p[i];
+        if(boal_num[x] == 0)    red_possibility[x] = false;
+    }
 
     ll ans = 0;
-
-    for(ll bit = 0; bit < (1 << n); ++bit)
+    rep(i,n)
     {
-        // switchのon_off状態をわかりやすくする
-        vector<bool> on_off(n,false);
-        for(ll i = 0; i < n; ++i)
-        {
-            if(bit & (1 << i))
-            {
-                on_off[i] = true;
-            }
-        }
-
-        // 各ライトがon_offどちらかを作る
-        bool on = true;
-        for(ll i = 0; i < m; ++i)
-        {
-            ll cnt = 0;
-            for(auto itr = light[i].begin(); itr != light[i].end(); ++itr)
-            {
-                if(on_off[*itr]) cnt++;
-            }
-
-            if(cnt % 2 != p[i])
-            {
-                on = false;
-                break;
-            } 
-        }
-        if(on) ans++;
+        if(red_possibility[i])
+            ans++;
     }
 
+
+
     cout << ans << endl;
+
 
     return 0;
 }

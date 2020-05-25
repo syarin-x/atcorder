@@ -50,60 +50,20 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n,m;
-    cin >> n >> m;
+    ll x;
+    cin >> x;
 
-    vector<vll> light(m);
-    vll p(n);
+    ll s = x / 11;
+    ll m = x % 11;
 
-    rep(i,m)
-    {
-        ll k;
-        cin >> k;
+    ll p = 0;
+    if(m > 6)   p = 2;
+    else if(m == 0) p = 0;
+    else p = 1;
 
-        rep(j,k)
-        {
-            ll s;
-            cin >> s;
-            s--;
-            light[i].push_back(s);
-        }
-    }
 
-    rep(i,m) cin >> p[i];
 
-    ll ans = 0;
-
-    for(ll bit = 0; bit < (1 << n); ++bit)
-    {
-        // switchのon_off状態をわかりやすくする
-        vector<bool> on_off(n,false);
-        for(ll i = 0; i < n; ++i)
-        {
-            if(bit & (1 << i))
-            {
-                on_off[i] = true;
-            }
-        }
-
-        // 各ライトがon_offどちらかを作る
-        bool on = true;
-        for(ll i = 0; i < m; ++i)
-        {
-            ll cnt = 0;
-            for(auto itr = light[i].begin(); itr != light[i].end(); ++itr)
-            {
-                if(on_off[*itr]) cnt++;
-            }
-
-            if(cnt % 2 != p[i])
-            {
-                on = false;
-                break;
-            } 
-        }
-        if(on) ans++;
-    }
+    ll ans = s * 2 + p;
 
     cout << ans << endl;
 
