@@ -50,31 +50,31 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n,k;
-    cin >> n >> k;
-    map<ll,ll> m;
+    double a,b,x;
+    cin >> a >> b >> x;
 
-    rep(i,n)
+    double s = x / a;
+
+    double ans;
+
+    const double PI = 3.141592653589793;
+
+    if(s < a * b / 2)
     {
-        ll a,b;
-        cin >> a >> b;
-        m[a] += b;
+        double a2 = 2 * s / b;
+        ans = 90.000000 - atan(a2 / b) * 180 / PI;
+    }
+    else if(s == a * b / 2)
+    {
+        ans = 90.000000 - atan(a / b) * 180 / PI;
+    }
+    else
+    {
+        double buf = a * a / (2 * a * b - 2 * s);
+        ans = 90.000000 - atan(buf) * 180 / PI;
     }
 
-    ll num = 0;
-    ll ans = 0;
-    for(auto itr = m.begin(); itr != m.end(); ++itr)
-    {
-        num += itr->second;
-        
-        if(num >= k)
-        {
-            ans = itr->first;
-            break;
-        }
-    }
-
-    cout << ans << endl;
+    cout << fixed << setprecision(10) <<  ans << endl;
 
     return 0;
 }
