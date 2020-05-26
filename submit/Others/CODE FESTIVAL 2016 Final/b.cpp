@@ -50,6 +50,30 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
+    ll n;
+    cin >> n;
+
+    ll sum = 0;
+    ll pos = 0;
+    for(ll i = 1; i <= n ; ++i)
+    {
+        sum += i;
+        if(sum >= n)
+        {
+            pos = i;
+            break;
+        }
+    }
+
+    ll sub = sum - n;
+
+    for(ll i = 1; i <= pos; ++i)
+    {
+        if(i != sub)
+            cout << i << endl;
+    }
+    
+
 
     return 0;
 }
