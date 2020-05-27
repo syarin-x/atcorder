@@ -50,36 +50,14 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n,p;
-    cin >> n >> p;
+    ll n, a,b;
+    cin >> n >> a >> b;
 
-    map<ll,ll> m;
+    ll mx = min(a,b);
+    ll mi = (n < a + b) ? a + b - n : 0;
 
-    for(ll i = 2; i * i <= p ; ++i)
-    {
-        if(p % i == 0)
-        {
-            while( p % i == 0)
-            {
-                m[i]++;
-                p /= i;
-            }
-        }
-    }
+    cout << mx << " " << mi << endl;
 
-    m[1] = n;
-
-    ll ans = 1;
-    for(auto itr = m.begin(); itr != m.end(); ++itr)
-    {
-        if(itr->second >= n)
-            ans *= itr->first;
-    }
-
-    if(n == 1)
-        ans = p;
-
-    cout << ans << endl;
 
     return 0;
 }
