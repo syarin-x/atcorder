@@ -50,17 +50,36 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll h1,m1,h2,m2,k;
+    ll n,p;
+    cin >> n >> p;
 
-    cin >> h1 >> m1 >> h2 >> m2 >> k;
+    map<ll,ll> m;
 
-    ll st,en;
-    st = 60 * h1 + m1;
-    en = 60 * h2 + m2;
+    ll back = p;
 
-    en -= k;
+    for(ll i = 2; i * i <= p ; ++i)
+    {
+        if(p % i == 0)
+        {
+            while( p % i == 0)
+            {
+                m[i]++;
+                p /= i;
+            }
+        }
+    }
 
-    ll ans = en - st;
+    m[1] = n;
+
+    ll ans = 1;
+    for(auto itr = m.begin(); itr != m.end(); ++itr)
+    {
+        ll buf = itr->second / n;
+        ans *= pow(itr->first, buf);
+    }
+
+    if(n == 1)
+        ans = back;
 
     cout << ans << endl;
 
