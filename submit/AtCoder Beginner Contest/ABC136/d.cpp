@@ -50,37 +50,54 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll h,w;
-    cin >> h >> w;
-    vector<string> s(h);
+    string s;cin >> s;
+    vll ans(sz(s),0);
 
-    vector<vector<ll>> m(h,vector<long long>(w,LLONG_MAX));
-
-    rep(i,h) cin >> s[i];
-
-    if(s[0][0] == '#')  m[0][0] = 1;
-    else m[0][0] = 0;
-
-    rep(i,h)
-    rep(j,w)
+    // Rのターン
+    ll cnt = 0;
+    rep(i,sz(s))
     {
-        // 右移動
-        if(j != w - 1)
-            if(s[i][j] == '.' && s[i][j+1] == '#')
-                m[i][j+1] = min(m[i][j+1], m[i][j] + 1);
-            else
-                m[i][j+1] = min(m[i][j+1], m[i][j]);
-        
-        // 下移動
-        if(i != h - 1)
-            if(s[i][j] == '.' && s[i+1][j] == '#')
-                m[i+1][j] = min(m[i+1][j], m[i][j] + 1);
-            else
-                m[i+1][j] = min(m[i+1][j], m[i][j]);
+        if(s[i] == 'L')
+        {
+            ans[i] += cnt / 2;
+            ans[i-1] += kiriage(cnt,2);
+            cnt = 0;
+        }
+        else
+        {
+            cnt++;
+        }
     }
 
-    cout << m[h-1][w-1] << endl;
+    reverse(all(s));
+    reverse(all(ans));
 
+    cnt = 0;
+    // Lのターン
+    rep(i,sz(s))
+    {
+        if(s[i] == 'R')
+        {
+            ans[i] += cnt / 2;
+            ans[i-1] += kiriage(cnt,2);
+            cnt = 0;
+        }
+        else
+        {
+            cnt++;
+        }
+    }
+
+    reverse(all(ans));
+
+    rep(i,sz(s))
+    {
+        if(i == 0)
+            cout << ans[i];
+        else
+            cout << " " << ans[i];
+    }
+    cout << endl;
 
     return 0;
 }
