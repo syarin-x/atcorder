@@ -50,7 +50,47 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
+    ll n,m;
+    cin >> n >> m;
 
+    vll a(n);
+    rep(i,n) cin >> a[i];
+
+    vector<pair<ll,ll>> bc(m);
+    rep(i,m) cin >> bc[i].first >> bc[i].second;
+
+    auto comp = [](auto x, auto y)
+    {
+        return x.second > y.second;
+    };
+
+    sort(all(bc),comp);
+    vsort(a);
+
+    ll j = 0;
+    rep(i,n)
+    {
+        if(a[i] < bc[j].second)
+        {
+            a[i] = bc[j].second;
+            bc[j].first--;
+        }
+        else
+        {
+            break;
+        }
+
+        if(bc[j].first == 0)
+            j++;
+
+        if(j == m)
+            break;
+    }
+
+    ull ans = 0;
+    rep(i,n) ans += a[i];
+
+    cout << ans << endl;
 
 
     return 0;

@@ -50,8 +50,45 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
+    string ss,t;
+    cin >> ss >> t;
 
+    reverse(all(ss));
+    reverse(all(t));
 
+    string ans = "";
+    rep(i,sz(ss) - sz(t) + 1)
+    {
+        string buf = ss.substr(i,sz(t));
+
+        bool is = true;
+        rep(j,sz(t))
+        {
+            if(buf[j] == '?')   continue;
+            if(buf[j] == t[j])  continue;
+
+            is = false;
+            break;
+        }
+
+        if(is)
+        {
+            ans = ss.substr(0,i) + t + ss.substr(i + sz(t));
+            reverse(all(ans));
+
+            rep(i,sz(ans))
+            {
+                if(ans[i] == '?')
+                    ans[i] = 'a';
+            }
+            break;
+        }
+    }
+
+    if(ans == "")
+        cout << "UNRESTORABLE" << endl;
+    else
+        cout << ans << endl;
 
     return 0;
 }

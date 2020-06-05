@@ -50,6 +50,34 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
+    ll n,m;
+    cin >> n >> m;
+
+    priority_queue<ll>  q;
+
+    rep(i,n)
+    {
+        ll buf;cin >> buf;
+        q.push(buf);
+    }
+
+    rep(i,m)
+    {
+        ll buf = q.top();
+        q.pop();
+        buf /= 2;
+        q.push(buf);
+    }
+
+    ll ans = 0;
+
+    rep(i,n)
+    {
+        ans += q.top();
+        q.pop();
+    }
+
+    cout << ans << endl;
 
 
 
