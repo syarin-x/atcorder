@@ -11,7 +11,6 @@ int CalcSumOfDigit(int n);      // 各桁の和を計算する。
 int getDigit(int n);            // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
-vector<pair<long long,long long>> prime_factorize(long long p); // 素因数分解
 
 // class
 // ------------------------------------------------
@@ -51,28 +50,23 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
-    
-    vll d(n);
-    rep(i,n) cin >> d[i];
+    ll m,d;
+    cin >> m >> d;
 
-    ll ans = 1;
-    if(d[0] != 0)
-        ans = 0;
-    else {
-        map<ll,ll> m;
-        for(auto it : d)
-            m[it]++;
-        
-        ll bef = m[0];
-        for(auto it : m)
-        {
-            if(it.first == 0) continue;
-            ans = ans * (bef * it.)
-        }
+    ll ans = 0;
+
+    for(ll i = 1; i <= m; i++)  // month
+    for(ll j = 10; j <= d; ++j)  // day
+    {
+        ll d1,d2;
+        d1 = j / 10;
+        d2 = j - d1 * 10;
+        if(i == d1 * d2 && d1 >= 2 && d2 >= 2)
+            ans++;
     }
-    
+
+    cout << ans << endl;
+
     return 0;
 }
 // funcの実体
@@ -175,22 +169,3 @@ long long Combi::nPk_modp(long long n, long long k, long long p)
 
   return ans;
 };
-
-vector<pair<long long,long long>> prime_factorize(long long p)
-{
-    vector<pair<long long,long long>> ret;
-
-    for(long long x = 2; x * x <= p; ++x) {
-        if(p % x != 0) continue;
-        long long num = 0;
-        while(p % x == 0) {
-            num++;
-            p /= x;
-        }
-        ret.push_back(make_pair(x,num));
-    }
-
-    if(p != 1) ret.push_back(make_pair(p, 1));
-    
-    return ret;
-}

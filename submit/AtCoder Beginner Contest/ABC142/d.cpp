@@ -51,28 +51,15 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
-    
-    vll d(n);
-    rep(i,n) cin >> d[i];
+    ll a,b;
+    cin >> a >> b;
 
-    ll ans = 1;
-    if(d[0] != 0)
-        ans = 0;
-    else {
-        map<ll,ll> m;
-        for(auto it : d)
-            m[it]++;
-        
-        ll bef = m[0];
-        for(auto it : m)
-        {
-            if(it.first == 0) continue;
-            ans = ans * (bef * it.)
-        }
-    }
-    
+    ll g = GCD(a,b);
+
+    auto ret = prime_factorize(g);
+
+    cout << sz(ret) + 1 << endl;
+
     return 0;
 }
 // funcの実体

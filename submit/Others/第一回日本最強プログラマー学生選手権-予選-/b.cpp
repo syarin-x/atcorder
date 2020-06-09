@@ -11,7 +11,6 @@ int CalcSumOfDigit(int n);      // 各桁の和を計算する。
 int getDigit(int n);            // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
-vector<pair<long long,long long>> prime_factorize(long long p); // 素因数分解
 
 // class
 // ------------------------------------------------
@@ -49,30 +48,55 @@ typedef unsigned long long ull;
 typedef vector<long> vll;
 // code
 // ------------------------------------------------
+long long modinv(long long a, long long m) {
+    long long b = m, u = 1, v = 0;
+    while (b) {
+        long long t = a / b;
+        a -= t * b; swap(a, b);
+        u -= t * v; swap(u, v);
+    }
+    u %= m;
+    if (u < 0) u += m;
+    return u;
+}
 int main() {
 
-    ll n;
-    cin >> n;
-    
-    vll d(n);
-    rep(i,n) cin >> d[i];
+    ll n,k;cin >> n >> k;
+    vll a(n);
 
-    ll ans = 1;
-    if(d[0] != 0)
-        ans = 0;
-    else {
-        map<ll,ll> m;
-        for(auto it : d)
-            m[it]++;
-        
-        ll bef = m[0];
-        for(auto it : m)
+    rep(i,n) cin >> a[i];
+
+    ll tn = 0;
+
+    rep(i,n-1)
+    {
+        for(ll j = i + 1; j < n; ++j)
         {
-            if(it.first == 0) continue;
-            ans = ans * (bef * it.)
+            if(a[i] > a[j]) tn++;
         }
     }
-    
+
+    rvsort(a);
+
+    ll tn2 = 0;
+    rep(i,n-1)
+    {
+        for(ll j = i + 1; j < n; ++j)
+        {
+            if(a[i] > a[j])
+                tn2++;
+        }
+    }
+
+
+    ll mo = 1000000000 + 7;
+    ll ans = ((tn * 2) % mo) + (tn2 * ((k - 1) % mo) % mo);
+    ans = ((ans % mo) * (k % mo));
+    ans = ans % mo * modinv(2,mo);
+    ans = ans % mo;
+
+    cout << ans << endl;
+
     return 0;
 }
 // funcの実体
@@ -175,22 +199,3 @@ long long Combi::nPk_modp(long long n, long long k, long long p)
 
   return ans;
 };
-
-vector<pair<long long,long long>> prime_factorize(long long p)
-{
-    vector<pair<long long,long long>> ret;
-
-    for(long long x = 2; x * x <= p; ++x) {
-        if(p % x != 0) continue;
-        long long num = 0;
-        while(p % x == 0) {
-            num++;
-            p /= x;
-        }
-        ret.push_back(make_pair(x,num));
-    }
-
-    if(p != 1) ret.push_back(make_pair(p, 1));
-    
-    return ret;
-}
