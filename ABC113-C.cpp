@@ -50,38 +50,34 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
+    ll n,m;
+    cin >> n >> m;
 
-    vll a(n);
-    
-    rep(i,n) cin >> a[i];
+    map<ll, map<ll,ll>> ma;
 
-    vll r(n,1),l(n,1);
-
-    r[0] = a[0];
-
-    rep(i,n-1) {
-        r[i+1] = GCD(r[i],a[i+1]);
+    rep(i,m) {
+        ll p,y;
+        cin >> p >> y;
+        ma[p][y] = i + 1;
     }
 
-    l[n-1] = a[n-1];
-    for(ll i = n-1; i >= 1; --i) {
-        l[i-1] = GCD(l[i], a[i-1]);
-    }
+    vector<string> city(m);
 
-    ll ans = 1;
-    rep(i,n) {
-        if(i == 0){
-            ans = max(ans, (long long)l[i + 1]);
-        } else if(i == n - 1) {
-            ans = max(ans, (long long)r[i - 1]);
-        } else {
-            ans = max(ans, (long long)GCD(l[i+1], r[i-1]));
+    for(auto it : ma) {
+        ll no = 1;
+        for(auto it2: it.second) {
+            std::ostringstream u,d;
+            u << std::setw(6) << setfill('0') << it.first;
+            d << std::setw(6) << setfill('0') << no;
+            city[it2.second-1] = u.str() + d.str();
+            no++;           
         }
     }
 
-    cout << ans << endl;
+    rep(i,m) {
+        cout << city[i] << endl;
+    }
+
 
 
     return 0;

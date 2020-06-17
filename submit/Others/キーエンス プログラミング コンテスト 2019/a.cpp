@@ -1,4 +1,4 @@
-// include
+pp// include
 // ------------------------------------------------
 #include <bits/stdc++.h>
 #include <math.h>
@@ -15,7 +15,8 @@ vector<pair<long long,long long>> prime_factorize(long long p); // 素因数分�
 
 // class
 // ------------------------------------------------
-class Combi {
+class Combi
+{
   public:
     Combi();
     long long Combination(long long n, long long k);
@@ -50,47 +51,31 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
+    map<ll,ll> m;
 
-    vll a(n);
-    
-    rep(i,n) cin >> a[i];
-
-    vll r(n,1),l(n,1);
-
-    r[0] = a[0];
-
-    rep(i,n-1) {
-        r[i+1] = GCD(r[i],a[i+1]);
+    rep(i,4) {
+        ll buf;
+        cin >> buf;
+        m[buf]++;
     }
 
-    l[n-1] = a[n-1];
-    for(ll i = n-1; i >= 1; --i) {
-        l[i-1] = GCD(l[i], a[i-1]);
+    if(m[1] == 1 && m[9] == 1 && m[7] == 1 && m[4] == 1)
+    {
+        cout << "YES" << endl;
+        return 0;
     }
 
-    ll ans = 1;
-    rep(i,n) {
-        if(i == 0){
-            ans = max(ans, (long long)l[i + 1]);
-        } else if(i == n - 1) {
-            ans = max(ans, (long long)r[i - 1]);
-        } else {
-            ans = max(ans, (long long)GCD(l[i+1], r[i-1]));
-        }
-    }
-
-    cout << ans << endl;
-
+    cout << "NO" << endl;
 
     return 0;
 }
 // funcの実体
 // ------------------------------------------------
-int getDigit(int n) {
+int getDigit(int n)
+{
   int i = 1;
-  while(1) {
+  while(1)
+  {
     n = n / 10;
     if(n == 1)
       break;
@@ -98,27 +83,35 @@ int getDigit(int n) {
   }
   return i;
 }
-int CalcSumOfDigit(int n) {
+int CalcSumOfDigit(int n)
+{
   int s = 0;
-  while(n) {
+  while(n)
+  {
     s += n % 10;
     n = n / 10;
   }
   return s;
 }
 
-string upper(string str) {
-  for(auto itr = str.begin();itr != str.end() ; itr++) {
-    if(97 <= *itr && *itr <= 122) {
+string upper(string str)
+{
+  for(auto itr = str.begin();itr != str.end() ; itr++)
+  {
+    if(97 <= *itr && *itr <= 122)
+    {
       *itr = *itr - 32;
     }
   }
   return str;
 }
 
-string lower(string str) {
-  for(auto itr = str.begin();itr != str.end() ; itr++) {
-    if(65 <= *itr && *itr <= 90) {
+string lower(string str)
+{
+  for(auto itr = str.begin();itr != str.end() ; itr++)
+  {
+    if(65 <= *itr && *itr <= 90)
+    {
       *itr = *itr + 32;
     }
   }
@@ -126,47 +119,59 @@ string lower(string str) {
 }
 
 
-Combi::Combi() {
+Combi::Combi(){
   n_num = -1;
   k_num = -1;
 };
-ll Combi::Combination(ll n, ll k) {
+ll Combi::Combination(ll n, ll k)
+{
   Resize(n,k);
 
   ll ret;
-  if(memo[n][k] != 0) {
+  if(memo[n][k] != 0)
+  {
     ret = memo[n][k];
-  } else if(n == k || k == 0) {
+  }
+  else if(n == k || k == 0)
+  {
     memo[n][k] = 1;
     ret = 1;
-  } else {
+  }
+  else
+  {
     ret = Combination(n - 1, k - 1) + Combination(n - 1, k);
     memo[n][k] = ret;
   }
   return ret;
 }
 
-void Combi::Resize(ll n, ll k) {
-  if(n_num <= n || k_num <= k) {
+void Combi::Resize(ll n, ll k)
+{
+  if(n_num <= n || k_num <= k)
+  {
     n_num = (n + 1) * 2;
     k_num = (k + 1) * 2;
     memo.resize(n_num);
-    for(auto itr = memo.begin(); itr != memo.end(); ++itr) {
+    for(auto itr = memo.begin(); itr != memo.end(); ++itr)
+    {
       itr->resize(k_num);
     }
   }
 }
 
-long long Combi::nPk_modp(long long n, long long k, long long p) {
+long long Combi::nPk_modp(long long n, long long k, long long p)
+{
   ll ans = 1;
-  for(long long i = k; i <= n; i++) {
+  for(long long i = k; i <= n; i++)
+  {
     ans = (ans * i) % p;
   }
 
   return ans;
 };
 
-vector<pair<long long,long long>> prime_factorize(long long p) {
+vector<pair<long long,long long>> prime_factorize(long long p)
+{
     vector<pair<long long,long long>> ret;
 
     for(long long x = 2; x * x <= p; ++x) {

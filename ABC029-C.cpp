@@ -50,39 +50,18 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
+    string s;
+    cin >> s;
 
-    vll a(n);
-    
-    rep(i,n) cin >> a[i];
+    ll pos = 0;
+    char bef;
 
-    vll r(n,1),l(n,1);
-
-    r[0] = a[0];
-
-    rep(i,n-1) {
-        r[i+1] = GCD(r[i],a[i+1]);
+    rep(i,sz(s)) {
+        if(i == 0)
+            bef = s[i];
+        
+        if(bef == s[i])
     }
-
-    l[n-1] = a[n-1];
-    for(ll i = n-1; i >= 1; --i) {
-        l[i-1] = GCD(l[i], a[i-1]);
-    }
-
-    ll ans = 1;
-    rep(i,n) {
-        if(i == 0){
-            ans = max(ans, (long long)l[i + 1]);
-        } else if(i == n - 1) {
-            ans = max(ans, (long long)r[i - 1]);
-        } else {
-            ans = max(ans, (long long)GCD(l[i+1], r[i-1]));
-        }
-    }
-
-    cout << ans << endl;
-
 
     return 0;
 }

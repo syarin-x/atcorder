@@ -50,39 +50,52 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n;
+    ull mo = 998244353;
+
+    ull n;
     cin >> n;
+    vll d(n);
 
-    vll a(n);
-    
-    rep(i,n) cin >> a[i];
+    map<ull,ull> m;
 
-    vll r(n,1),l(n,1);
-
-    r[0] = a[0];
-
-    rep(i,n-1) {
-        r[i+1] = GCD(r[i],a[i+1]);
-    }
-
-    l[n-1] = a[n-1];
-    for(ll i = n-1; i >= 1; --i) {
-        l[i-1] = GCD(l[i], a[i-1]);
-    }
-
-    ll ans = 1;
     rep(i,n) {
-        if(i == 0){
-            ans = max(ans, (long long)l[i + 1]);
-        } else if(i == n - 1) {
-            ans = max(ans, (long long)r[i - 1]);
+        cin >> d[i];
+        m[d[i]]++;
+    }
+
+    if( d[0] != 0 ){
+        cout << 0 << endl;
+        return 0;
+    }
+
+    ull ans = 1;
+    ull bef_val = m.begin() -> first;
+    ull bef_num = m.begin() -> second;
+
+    if(bef_val != 0 || bef_num != 1) {
+        cout << 0 << endl;
+        return 0;
+    }
+
+    for(auto it : m){
+        if(it.first == 0)
+            continue;
+        
+        if(m[it.first - 1] != 0) {
+            ull sub = 1;
+            rep(i,it.second) {
+                sub = (sub * bef_num) % mo;
+            }
+            ans = ans * sub % mo;
+            bef_val = it.first;
+            bef_num = it.second;
         } else {
-            ans = max(ans, (long long)GCD(l[i+1], r[i-1]));
+            cout << 0 << endl;
+            return 0;
         }
     }
 
     cout << ans << endl;
-
 
     return 0;
 }

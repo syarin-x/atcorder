@@ -52,36 +52,26 @@ int main() {
 
     ll n;
     cin >> n;
-
     vll a(n);
-    
+    vector<vll> dp(2,vll(n,0));
+
     rep(i,n) cin >> a[i];
 
-    vll r(n,1),l(n,1);
-
-    r[0] = a[0];
-
-    rep(i,n-1) {
-        r[i+1] = GCD(r[i],a[i+1]);
-    }
-
-    l[n-1] = a[n-1];
-    for(ll i = n-1; i >= 1; --i) {
-        l[i-1] = GCD(l[i], a[i-1]);
-    }
-
-    ll ans = 1;
     rep(i,n) {
-        if(i == 0){
-            ans = max(ans, (long long)l[i + 1]);
-        } else if(i == n - 1) {
-            ans = max(ans, (long long)r[i - 1]);
+        if(i == 0) {
+            dp[0][0] = a[i];
+            dp[1][0] = a[i] * -1;
         } else {
-            ans = max(ans, (long long)GCD(l[i+1], r[i-1]));
+
+            // 操作しない
+            dp[0][i] = max(dp[0][i-1] + a[i], dp[1][i-1] + (a[i] * -1));
+
+            // 操作する
+            dp[1][i] = max(dp[0][i-1] + (a[i] * -1), dp[1][i-1] + a[i]); 
         }
     }
-
-    cout << ans << endl;
+    
+    cout << dp[0][n-1] << endl;
 
 
     return 0;
