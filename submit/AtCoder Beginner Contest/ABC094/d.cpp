@@ -24,6 +24,7 @@ class Combi {
     map<long long, map<long long, long long>> memo;
     long long n_num;
     long long k_num;
+    // void Resize(long long n, long long k);
 };
 
 // define
@@ -49,33 +50,33 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
+    ll n;cin >> n;
+    vll a(n);
+    for(ll i = 0; i < n ; ++i) cin >> a[i];
 
-    vll c(n-1),s(n-1),f(n-1);
+    vsort(a);
 
-    rep(i,n-1) cin >> c[i] >> s[i] >> f[i];
+    ll N = a[n-1];
 
-    vll ans(n,0);
+    bool even = (N % 2 == 0);
 
-    rep(i,n-1){
+    ll bef = 0;
+    ll aft = 0;
 
-        ll time = 0;
-        for(ll j = i; j < n - 1; ++j){
-            if(time <= s[j]) time = s[j];
-            else if(time % f[j] == 0){
-                // そのまま
-            } else {
-                time = kiriage(time,f[j]) * f[j];
-            }
-            time += c[j];
+    // 偶数
+    ll chk = even ? N / 2 : ( N + 1 ) / 2;
+
+    ll ans = 0;
+    ll diff = LLONG_MAX;
+    rep(i,n - 1){
+        if(diff > abs(chk - a[i])){
+            diff = chk - a[i];
+            ans = a[i];
         }
-        ans[i] = time;
     }
 
-    rep(i,n){
-        cout << ans[i] << endl;
-    }
+    cout << N << " " << ans << endl;
+
 
     return 0;
 }
@@ -125,6 +126,7 @@ Combi::Combi() {
 };
 
 ll Combi::Combination(ll n, ll k) {
+  //Resize(n,k);
 
   ll ret;
   if(memo[n][k] != 0) {
@@ -138,6 +140,17 @@ ll Combi::Combination(ll n, ll k) {
   }
   return ret;
 }
+
+// void Combi::Resize(ll n, ll k) {
+//   if(n_num <= n || k_num <= k) {
+//     n_num = (n + 1) * 2;
+//     k_num = (k + 1) * 2;
+//     memo.resize(n_num);
+//     for(auto itr = memo.begin(); itr != memo.end(); ++itr) {
+//       itr->resize(k_num);
+//     }
+//   }
+// }
 
 long long Combi::nPk_modp(long long n, long long k, long long p) {
   ll ans = 1;
