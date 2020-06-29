@@ -52,30 +52,33 @@ int main() {
     ll n;
     cin >> n;
 
-    vll c(n-1),s(n-1),f(n-1);
+    vll a(n);
+    rep(i,n) cin >> a[i];
 
-    rep(i,n-1) cin >> c[i] >> s[i] >> f[i];
+    ll sum = 0;
+    rep(i,n){
+        sum += a[i];
+    }
 
-    vll ans(n,0);
+    ll sum2 = 0;
+    for(ll i = 1;i < n; i = i + 2){
+        sum2 += a[i];
+    }
 
-    rep(i,n-1){
+    vll x(n+1);
+    x[0] = sum - sum2 * 2;
 
-        ll time = 0;
-        for(ll j = i; j < n - 1; ++j){
-            if(time <= s[j]) time = s[j];
-            else if(time % f[j] == 0){
-                // そのまま
-            } else {
-                time = kiriage(time,f[j]) * f[j];
-            }
-            time += c[j];
-        }
-        ans[i] = time;
+    rep(i,n){
+        x[i+1] = 2 * a[i] - x[i];
     }
 
     rep(i,n){
-        cout << ans[i] << endl;
+        if(i == 0)
+            cout << x[i];
+        else
+            cout << " " << x[i];
     }
+    cout << endl;
 
     return 0;
 }
