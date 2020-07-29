@@ -12,7 +12,6 @@ int getDigit(int n);            // 数字の桁数を取得する。
 string upper(string str);       // 英字を大文字に変換する。
 string lower(string str);       // 英字を小文字に変換する。
 vector<pair<long long,long long>> prime_factorize(long long p); // 素因数分解
-vector<pair<char, long long>> runLengthEncoding(string s);      // ランレングス圧縮
 
 // class
 // ------------------------------------------------
@@ -50,17 +49,27 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    string s;
-    cin >> s;
+    ll a,b,c;
+    cin >> a >> b >> c;
 
-    auto a = runLengthEncoding(s);
+    ll l = a + b + c;
+    
+    double ans = l * l * M_PI;
 
-    for(auto it : a){
-        cout << it.first << it.second;
+    if(abs(a - c) > b){
+        ll buf = max(a,c) - min(a,c) - b;
+        ans = (l * l - buf * buf) * M_PI;
     }
 
-    return 0;
+    if( a + c < b){
+        ll buf = b - a - c;
+        ans = (l * l - buf * buf) * M_PI;
+    }
 
+    cout << fixed << setprecision(15) << ans << endl;
+
+
+    return 0;
 }
 // funcの実体
 // ------------------------------------------------
@@ -146,26 +155,5 @@ vector<pair<long long,long long>> prime_factorize(long long p) {
 
     if(p != 1) ret.push_back(make_pair(p, 1));
     
-    return ret;
-}
-
-vector<pair<char, long long>> runLengthEncoding(string s){
-    vector<pair<char, long long>> ret;
-    
-    for(long long i = 0; i < s.length(); i++){
-        char cur = s[i];
-        long long cnt = 1;
-
-        for(long long j = i + 1; j < s.length(); j++){
-            if(cur != s[j]) break;
-            
-            cnt++;
-        }
-
-        ret.emplace_back(make_pair(cur,cnt));
-
-        i += cnt - 1;
-    }
-
     return ret;
 }
