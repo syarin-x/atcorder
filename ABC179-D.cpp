@@ -139,8 +139,33 @@ using mint = modint<998244353>;
 // ------------------------------------------------
 int main() {
 
+    ll n,k;
+    cin >> n >> k;
 
-    cout << ans << endl;
+    set<ll> s;
+    rep(i,k){
+        ll l,r;
+        cin >> l >> r;
+        for(ll j = l ; j <= r; j++){
+            s.insert(j);
+        }
+    }
+
+    vll dp(n + 1,0);
+    vector<bool> his(n + 1,false);
+    his[1] = true;
+
+    for(ll i = 1; i < n; i++){
+        for(auto j : s){
+            if(i + j > n) break;
+            if(his[i]){
+                dp[i + j] = (dp[i+j] + dp[i] + 1) % 998244353;
+                his[i + j] = true;
+            }
+        }
+    }
+
+    cout << dp[n] << endl;
 
     return 0;
 }
@@ -151,7 +176,7 @@ int getDigit(int n) {
   int i = 1;
   while(1) {
     n = n / 10;
-    if(n == 0)
+    if(n == 1)
       break;
     i++;
   }

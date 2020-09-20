@@ -133,14 +133,30 @@ template <long long Modulus> class modint {
 
 };
 
-using mint = modint<998244353>;
+using mint = modint<1000000007>;
 
 // code
 // ------------------------------------------------
 int main() {
 
 
+    ll n;
+    cin >> n;
+
+    ll ans = 0;
+
+    for(ll i = 1; i < n; i++){
+        for(ll j = 1; i * j < n; j++){
+            ll c = n - i * j;
+            if(1 <= c && c < n){
+                ans++;
+            }
+        }
+    }
+
+
     cout << ans << endl;
+
 
     return 0;
 }
@@ -151,7 +167,7 @@ int getDigit(int n) {
   int i = 1;
   while(1) {
     n = n / 10;
-    if(n == 0)
+    if(n == 1)
       break;
     i++;
   }
