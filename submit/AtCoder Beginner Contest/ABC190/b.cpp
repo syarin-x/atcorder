@@ -221,25 +221,19 @@ public:
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
-    n *= 2;
-    
-    ll cnt = 0;
-    for(int i = 1; i * i <= n; i++){
-        if(n % i != 0) continue;
+    ll n,s,d;
+    cin >> n >> s >> d;
 
-        ll b = n / i;
-        ll buf = b - i + 1; // 2a
-        if(buf & 0x01){
-            continue;
-        } else {
-            cnt++;
+    rep(i,n){
+        ll x, y;
+        cin >> x >> y;
+        if(x < s && d < y){
+            cout << "Yes" << endl;
+            return 0;
         }
     }
 
-    cout << cnt * 2 << endl;
-
+    cout << "No" << endl;
     return 0;
 }
 

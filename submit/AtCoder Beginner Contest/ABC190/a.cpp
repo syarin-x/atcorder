@@ -221,24 +221,24 @@ public:
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
-    n *= 2;
-    
-    ll cnt = 0;
-    for(int i = 1; i * i <= n; i++){
-        if(n % i != 0) continue;
+    ll a,b,c;
+    cin >> a >> b >> c;
 
-        ll b = n / i;
-        ll buf = b - i + 1; // 2a
-        if(buf & 0x01){
-            continue;
+    if(c == 0)
+    {
+        if(a <= b){
+            cout << "Aoki" << endl;
         } else {
-            cnt++;
+            cout << "Takahashi" << endl;
         }
     }
-
-    cout << cnt * 2 << endl;
+    else{
+        if(b <= a){
+            cout << "Takahashi" << endl;
+        } else {
+            cout << "Aoki" << endl;
+        }
+    }
 
     return 0;
 }

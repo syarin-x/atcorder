@@ -221,24 +221,60 @@ public:
 // ------------------------------------------------
 int main() {
 
-    ll n;
-    cin >> n;
-    n *= 2;
-    
-    ll cnt = 0;
-    for(int i = 1; i * i <= n; i++){
-        if(n % i != 0) continue;
+    ll n,m;
+    cin >> n >> m;
 
-        ll b = n / i;
-        ll buf = b - i + 1; // 2a
-        if(buf & 0x01){
-            continue;
-        } else {
-            cnt++;
-        }
+    vector<pair<ll,ll>>    jouken(m);
+    rep(i,m){
+        ll a,b;
+        cin >> a >> b;
+        a--;
+        b--;
+        jouken[i].first = a;
+        jouken[i].second = b;
     }
 
-    cout << cnt * 2 << endl;
+    ll k;
+    cin >> k;
+    vector<pair<ll,ll>> pu(k);
+
+    rep(i,k){
+        ll c,d;
+        cin >> c >> d;
+        c--;
+        d--;
+        pu[i].first = c;
+        pu[i].second = d;
+    }
+
+    ll ans = 0;
+    for(ll bit = 0; bit < (1 << k); bit++){
+        vll dish(n,0);
+        for(ll i = 0; i < k; i++){
+            if ( bit & (1 << i)){
+                dish[pu[i].first]++;
+            } else {
+                dish[pu[i].second]++;
+            }
+        }
+
+        ll cnt = 0;
+        rep(i,m)
+        {
+            ll x = dish[jouken[i].first];
+            ll y = dish[jouken[i].second];
+            if(x > 0 && y > 0)
+                cnt++;
+        }
+
+        ans = max(ans, cnt);
+    }
+
+
+    cout << ans << endl;
+
+
+
 
     return 0;
 }
