@@ -50,12 +50,30 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    vll a(5);
-    rep(i,5) cin >> a[i];
+  vll a(5);
 
-    vsort(a);
+  rep(i,5) cin >> a[i];
+  set<ll> s;
+  priority_queue<ll> p;
 
-    cout << a[0] + a[3] + a[4] << endl;
+  for(int i = 0;i < 5 ; ++i)
+  for(int j = i + 1;j < 5; ++j)
+  for(int k = j + 1;k < 5; ++k)
+  {
+    ll sum = a[i] + a[j] + a[k];
+    s.insert(sum);
+  }
+
+  for(auto it : s){
+    p.push(it);
+  }
+
+  p.pop();
+  p.pop();
+  ll ans = p.top();
+
+  cout << ans << endl;
+
 
     return 0;
 }
