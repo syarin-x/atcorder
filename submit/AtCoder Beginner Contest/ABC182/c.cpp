@@ -221,7 +221,28 @@ public:
 // ------------------------------------------------
 int main() {
 
+    string s;
+    cin >> s;
 
+    ll n = s.length();
+
+    ll ans = INF;
+    for(int bit = 0; bit < (1 << n); bit++){
+        ll cnt = 0;
+        ll sum = 0;
+        for(int i = 0; i < n ; i++){
+            if(bit & (1 << i)){
+                sum += (long)(s[i] - '0');
+            } else {
+                cnt++;
+            }
+        }
+        if(sum % 3 == 0){
+            chmin(ans, cnt);
+        }
+    }
+
+    cout << (ans != n ? ans : -1) << endl;
 
     return 0;
 }

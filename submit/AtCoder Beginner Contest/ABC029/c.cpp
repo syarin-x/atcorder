@@ -50,20 +50,47 @@ typedef vector<long> vll;
 // ------------------------------------------------
 int main() {
 
-    string s;
-    cin >> s;
+  ll n;
+  cin >> n;
 
-    ll pos = 0;
-    char bef;
+  queue<string> q;
 
-    rep(i,sz(s)) {
-        if(i == 0)
-            bef = s[i];
-        
-        if(bef == s[i])
+  string b = "";
+  q.push(b);
+
+  while(1)
+  {
+    string buf = q.front();
+    q.pop();
+
+    if(sz(buf) >= n)
+    {
+      q.push(buf);
+      break;
     }
+    q.push(buf + "a");
+    q.push(buf + "b");
+    q.push(buf + "c");
+  }
 
-    return 0;
+  vector<string> m;
+
+  while(sz(q) > 0)
+  {
+    string buf = q.front();
+    q.pop();
+    m.emplace_back(buf);
+  }
+
+  sort(all(m));
+
+  for(auto it : m)
+  {
+    cout << it << endl;
+  }
+
+
+  return 0;
 }
 // funcの実体
 // ------------------------------------------------

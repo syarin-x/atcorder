@@ -15,8 +15,6 @@ vector<pair<long long,long long>> prime_factorize(long long p); // 素因数分�
 vector<pair<char, long long>> runLengthEncoding(string s);      // ランレングス圧縮
 long long grid_bfs(vector<string> &m, long long s_r, long long s_c, long long g_r ,long long g_c ,char block); // gridのbfs
 bool is_prime(const unsigned n);
-long long extGCD(long long a,long long b, long long &x,long long &y);
-long long inverse(long long val, long long modulus);
 
 // class
 // ------------------------------------------------
@@ -31,16 +29,6 @@ class Combi {
     long long k_num;
 };
 
-class UnionFind {
-        vector<int> par;
-    public:
-        UnionFind(int n);
-        bool issame(int x, int y);
-        void unite(int x, int y);
-        int root(int x);
-        int size(int x);
-        void debug_print();
-};
 // define
 // ------------------------------------------------
 #define all(a)        (a).begin(),(a).end()
@@ -62,21 +50,6 @@ typedef vector<long long> vll;
 
 
 #include <cstdint>
-
-template<class T> inline bool chmin(T& a, T b) {
-    if (a > b) {
-        a = b;
-        return true;
-    }
-    return false;
-}
-template<class T> inline bool chmax(T& a, T b) {
-    if (a < b) {
-        a = b;
-        return true;
-    }
-    return false;
-}
 
 template <long long Modulus> class modint {
     public:
@@ -121,6 +94,18 @@ template <long long Modulus> class modint {
             return *this *= inv(rhs);
         }
 
+        long long extGCD(long long a,long long b, long long &x,long long &y){
+            if(b == 0){
+                x = 1;
+                y = 0;
+                return 0;
+            }
+
+            long long d = extGCD(b, a % b, y, x);
+            y -= a/b * x;
+            return d;
+        }
+
         constexpr modint inv(const modint& rhs){
             ll u,v;
             extGCD(rhs.val, Modulus, u, v);
@@ -148,79 +133,37 @@ template <long long Modulus> class modint {
 };
 
 using mint = modint<1000000007>;
-template< typename T>
-class NoC {
-    vector<T> _fact, _fact_inv, _inv;
-        /*
-            _fact       : i の階乗
-            _fact_inv   : _factの逆元
-            _inv        : i の逆元
-        */
-
-    inline T fact(int k) const { return _fact[k]; }
-    inline T fact_inv(int k) const { return _fact_inv[k]; }
-    inline T inv(int k) const { return _inv[k]; }
-
-    public:
-    NoC(int s) : _fact(s + 1), _fact_inv(s + 1, 1) , _inv(s + 1, 1) {
-        _fact[0] = _fact_inv[s] = _inv[0] = 1;
-
-        for(int i = 1; i <= s; ++i){
-            _fact[i] = _fact[i - 1] * i;
-            _fact_inv[i] /= _fact[i];
-            T temp_i = i;
-            _inv[i] /= temp_i;
-        }
-    }
-
-    T P(int n, int r) const {
-        if( r < 0 || n < r ) return 0;
-        return fact(n) * fact_inv(n - r);
-    }
-
-    T C(int n, int r) const {
-        if( r < 0 || n < r ) return 0;
-        return fact(n) * fact_inv(n - r) * fact_inv(r);
-    }
-
-    T H(int n, int r) const {
-        if(n < 0 || r < 0) return 0;
-        return (n == 0 ? 1 : fact(n + r - 1) * fact_inv(r) * fact_inv(n - 1));
-    }
-};
-
-template<typename T>
-class SparseTable {
-    T** table;
-    int* logtable;
-public:
-    SparseTable(vector<T>& vec) {
-        int maxlength = 0;
-        while ((1 << (maxlength + 1)) <= vec.size())maxlength++;
-        table = new T * [maxlength + 1];
-        logtable = new int[vec.size() + 1];
-        rep(i, maxlength + 1) {
-            table[i] = new T[vec.size()];
-            rep(j, vec.size() - (1 << i) + 1) {
-                if (i)table[i][j] = min(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]);
-                else table[i][j] = vec[j];
-            }
-        }
-        for (int i = 2; i <= vec.size(); i++) {
-            logtable[i] = logtable[i >> 1] + 1;
-        }
-    }
-    T query(int l, int r) {
-        assert(l < r);
-        int length = r - l;
-        return min(table[logtable[length]][l], table[logtable[length]][r - (1 << logtable[length])]);
-    }
-};
 
 // code
 // ------------------------------------------------
 int main() {
 
+    ll n;
+    cin >> n;
+
+    vector<long long> a(n);
+    rep(i,n) cin >> a[i];
+
+    ll k = 0;
+    ll gc = 0;
+
+    vsort(a);
+
+    ll mm = a[a.size() - 1];
+
+    for(int i = 2; i <= mm; i++){
+        ll cnt = 0;
+        rep(j,n){
+            if(a[j] % i == 0) cnt++;
+        }
+        //cout << i << " " << cnt << endl;
+        if(k < cnt){
+            k = cnt;
+            gc = i;
+        }
+    }
+
+    cout << gc << endl;
 
 
     return 0;
@@ -399,71 +342,3 @@ bool is_prime(const unsigned n){
 
     return true;
 }
-
-// 拡張ユークリッドの控除法
-long long extGCD(long long a,long long b, long long &x,long long &y){
-    if(b == 0){
-        x = 1;
-        y = 0;
-        return 0;
-    }
-
-    long long d = extGCD(b, a % b, y, x);
-    y -= a/b * x;
-    return d;
-}
-
-long long inverse(long long val, long long modulus){
-    ll u,v;
-    extGCD(val, modulus, u, v);
-    return u;
-}
-
-// ------------------------------------------------------------------------------
-// union find tree
-// ------------------------------------------------------------------------------
-UnionFind::UnionFind(int N) : par(N, -1) {
-    // rep(i,N) par[i] = i;
-}
-
-int UnionFind::root(int x){
-    int rx = par[x];
-    if(rx < 0) return x;
-
-    return par[x] = root(rx);
-}
-
-void UnionFind::unite(int x, int y){
-    int rx = root(x);
-    int ry = root(y);
-
-    if(rx == ry) return;
-
-    if(rx < ry){
-        par[rx] += par[ry];
-        par[ry] = rx;
-    } else {
-        par[ry] += par[rx];
-        par[rx] = ry;
-    }
-
-    return;
-}
-
-bool UnionFind::issame(int x, int y){
-    int rx = root(x);
-    int ry = root(y);
-    return rx == ry;
-}
-
-int UnionFind::size(int x){
-    int rx = root(x);
-    return -par[rx];
-}
-
-void UnionFind::debug_print(){
-    rep(i,par.size()){
-        cout << par[i] << endl;
-    }
-}
-

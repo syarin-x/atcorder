@@ -219,26 +219,63 @@ public:
 
 // code
 // ------------------------------------------------
-int main() {
+ll n,m,q;
+vector<vector<long long>> V;
+void dfs(vector<long long> perm){
 
-    ll n;
-    cin >> n;
-    n *= 2;
-    
-    ll cnt = 0;
-    for(int i = 1; i * i <= n; i++){
-        if(n % i != 0) continue;
-
-        ll b = n / i;
-        ll buf = b - i + 1; // 2a
-        if(buf & 0x01){
-            continue;
-        } else {
-            cnt++;
-        }
+    if((long long)perm.size() == n){
+        V.emplace_back(perm);
+        return;
     }
 
-    cout << cnt * 2 << endl;
+
+    for(ll i = 1;i <= m;i++){
+        if(perm.size() > 0){
+            ll start = perm[perm.size() - 1];
+            if(start > i){
+                continue;
+            }
+        }
+        perm.emplace_back(i);
+        dfs(perm);
+        auto itr = perm.end();
+        itr--;
+        perm.erase(itr);
+    }
+}
+
+int main() {
+
+    cin >> n >> m >> q;
+
+    vll a(q),b(q),c(q),d(q);
+    rep(i,q){
+        cin >> a[i] >> b[i] >> c[i] >> d[i];
+    }
+
+    vector<long long> u;
+    dfs(u);
+
+    ll ans = 0;
+    rep(i, sz(V)){
+        ll cnt = 0;
+        rep(j,q){
+            if(V[i][b[j] - 1] - V[i][a[j] - 1] == c[j]){
+                cnt += d[j];
+            }
+        }
+        chmax(ans, cnt);
+    }
+
+
+    cout << ans << endl;
+    
+    // for(auto it : V){
+    //     for(auto i : it){
+    //         cout << i << " ";
+    //     }
+    //     cout << endl;
+    // }
 
     return 0;
 }

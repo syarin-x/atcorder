@@ -29,16 +29,6 @@ class Combi {
     long long k_num;
 };
 
-class UnionFind {
-        vector<int> par;
-    public:
-        UnionFind(int n);
-        bool issame(int x, int y);
-        void unite(int x, int y);
-        int root(int x);
-        int size(int x);
-        void debug_print();
-};
 // define
 // ------------------------------------------------
 #define all(a)        (a).begin(),(a).end()
@@ -146,65 +136,14 @@ using mint = modint<1000000007>;
 
 // code
 // ------------------------------------------------
-long dfs(vector<vector<pair<ll,ll>>>& Graph, ll here, vector<bool>& seen, ll length, ll goal, ll& dist){
-    seen[here] = true;
-
-    for(auto it : Graph[here]){
-        ll next = it.first;
-
-        if(seen[next]) continue;
-
-        if(next == goal){
-            dist = length + it.second;
-            return 0;
-        }
-        dfs(Graph,next,seen,length + it.second, goal, dist);
-    }
-    return 0;
-}
-
 int main() {
 
-    ll n;
-    cin >> n ;
-    vector<vector<pair<ll,ll>>> Graph(n);
+    ll a,b;
+    cin >> a >> b;
 
-    rep(i,n - 1){
-        ll a,b,c;
-        cin >> a >> b >> c;
-        a--;
-        b--;
-        Graph[a].push_back(make_pair(b,c));
-        Graph[b].push_back(make_pair(a,c));
-    }
+    ll re = (2 * a + 100 - b );
+    cout << ( re > 0 ? re : 0) << endl;
 
-    ll q,k;
-    cin >> q >> k;
-
-    vector<pair<ll,ll>> Question(q);
-    map<ll,ll> memo;
-
-    rep(i,q){
-        ll x,y;
-        cin >> x >> y;
-        x--;
-        y--;
-
-        Question[i] = make_pair(x,y);
-
-        ll x_k = 0;
-        vector<bool> seen(n, false);
-        dfs(Graph, x, seen, 0, k-1, memo[x]);
-        
-        vector<bool> seen2(n, false);
-        dfs(Graph, y, seen2, 0, k-1, memo[y]);
-    }
-
-    rep(i,q){
-        ll x = Question[i].first;
-        ll y = Question[i].second;
-        cout << memo[x] + memo[y] << endl;
-    }
     return 0;
 }
 
@@ -380,49 +319,4 @@ bool is_prime(const unsigned n){
     }
 
     return true;
-}
-
-UnionFind::UnionFind(int N) : par(N, -1) {
-    // rep(i,N) par[i] = i;
-}
-
-int UnionFind::root(int x){
-    int rx = par[x];
-    if(rx < 0) return x;
-
-    return par[x] = root(rx);
-}
-
-void UnionFind::unite(int x, int y){
-    int rx = root(x);
-    int ry = root(y);
-
-    if(rx == ry) return;
-
-    if(rx < ry){
-        par[rx] += par[ry];
-        par[ry] = rx;
-    } else {
-        par[ry] += par[rx];
-        par[rx] = ry;
-    }
-
-    return;
-}
-
-bool UnionFind::issame(int x, int y){
-    int rx = root(x);
-    int ry = root(y);
-    return rx == ry;
-}
-
-int UnionFind::size(int x){
-    int rx = root(x);
-    return -par[rx];
-}
-
-void UnionFind::debug_print(){
-    rep(i,par.size()){
-        cout << par[i] << endl;
-    }
 }
